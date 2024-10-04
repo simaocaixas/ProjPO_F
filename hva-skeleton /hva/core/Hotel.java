@@ -20,13 +20,13 @@ public class Hotel implements Serializable {
   // FIXME define contructor(s)
   // FIXME define more methods
 
-  public void registerAnimal(String idAni, String nomeAni, String idSpc, String idHabi) {
+  public void registerAnimal(String idAni, String nomeAni, String idSpc, String idHabi) throws UnknownSpeciesKeyException {
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nomeAni, specie, habitat);    
     _animals.put(idAni,animal); 
   }
-  public void registerSpicie(String idSpc, String nomeSpc) {    
+  public void registerSpecie(String idSpc, String nomeSpc) {    
     Specie specie = new Specie(this, idSpc, nomeSpc);       
     _species.put(idSpc,specie); 
   }
