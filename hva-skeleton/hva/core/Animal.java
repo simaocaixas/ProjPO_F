@@ -32,7 +32,7 @@ public class Animal {
         }  return null;
     }
     
-    protected String ToString() {
+    public String aniToString() {
         return "ANIMAL"+ "|" + _idANi + "|" + _nomeAni + "|" + _specie.idSpc() + "|" + (healthState() == null ? "VOID" : healthState()) + "|" + _habitat.idHabi();
     }
 }

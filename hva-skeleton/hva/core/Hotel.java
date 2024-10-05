@@ -1,8 +1,6 @@
 package hva.core;
 
-import hva.app.exception.UnknownAnimalKeyException;
-import hva.app.exception.UnknownSpeciesKeyException;
-import hva.app.exception.DuplicateHabitatKeyException;
+import hva.app.exception.*;
 import hva.core.Habitat;
 import hva.core.exception.*;
 import java.io.*;
@@ -20,6 +18,7 @@ public class Hotel implements Serializable {
   HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
   HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
   HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
+  HashMap<String,Emplooye> _employees = new HashMap<String,Emplooye>(); 
 
   // FIXME define contructor(s)
   // FIXME define more methods
@@ -40,17 +39,31 @@ public class Hotel implements Serializable {
   }
 
   public void registerHabitat(String idHabi, String nameHabi, int area) throws DuplicateHabitatKeyException {
-      
+            
+    // AQUI
+    if(_habitats.containsKey(idHabi)) {
+      throw new DuplicateHabitatKeyException(idHabi);
+    }
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
-      
-      // AQUI
-      if(_habitats.containsKey(habitat)) {
-        throw new DuplicateHabitatKeyException(idHabi);
-      }
-      _habitats.put(idHabi, habitat);
-      
+    _habitats.put(idHabi, habitat);
+    
+    
+}
 
-  }
+  public void registerEmployee(String idEmp, String nameEmp, String type) throws DuplicateEmployeeKeyException {
+    //FIXME implement method
+    
+    if (_employees.containsKey(idEmp)) {
+      throw new DuplicateEmployeeKeyException(idEmp);
+    } 
+    if (type.equals("VET")) {
+      Veterinarian veterinarian = new Veterinarian(this, idEmp, nameEmp);
+      _employees.put(idEmp, veterinarian);
+    } else {
+      ZooKeeper zooKeeper = new ZooKeeper(this, idEmp, nameEmp);
+      _employees.put(idEmp,zooKeeper);
+    }
+}
 
   public void changeHabitat(String idHabi, int area) {
 
@@ -58,7 +71,7 @@ public class Hotel implements Serializable {
       habitat.changeHabitat(habitat, area);
 
   }
-
+  
 
   public Specie getSpecieById(String idSpc) throws UnknownSpeciesKeyException {
 
@@ -74,7 +87,11 @@ public class Hotel implements Serializable {
     return _habitats.get(idHabi);
   }
 
-  
+  public List<Animal> getAllAnimals() {
+    List<Animal> animalList = new ArrayList<>(_animals.values());
+    return Collections.unmodifiableList(animalList);
+}
+
 
   
   /**
