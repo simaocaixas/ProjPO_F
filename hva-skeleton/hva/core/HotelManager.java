@@ -2,6 +2,12 @@ package hva.core;
 
 import hva.core.exception.*;
 import java.io.*;
+import java.util.*;
+
+import hva.core.exception.ImportFileException;
+import hva.core.exception.MissingFileAssociationException;
+import hva.core.exception.UnavailableFileException;
+import hva.core.exception.UnrecognizedEntryException;
 
 // FIXME import classes
 
@@ -12,6 +18,7 @@ import java.io.*;
 public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
+  private String _fileName = null;
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -33,8 +40,15 @@ public class HotelManager {
    * @throws MissingFileAssociationException if the current network does not have a file.
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
-  public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
+  public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException { // AQUI
+    _fileName = filename;
+    try {
+      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(_fileName + ".txt"));
+      oos.writeObject(_hotel);
+      oos.close(); 
+    } catch (IOException e) {
+      System.err.println("Exceção Lançada: IOException.");
+    }
   }
   
   /**
@@ -43,8 +57,16 @@ public class HotelManager {
    * @throws UnavailableFileException if the specified file does not exist or there is
    *         an error while processing this file.
    **/
-  public void load(String filename) throws UnavailableFileException {
-    // FIXME implement serialization method
+  public void load(String filename) throws UnavailableFileException { // AQUI
+    try {
+      ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename + ".txt"));
+      _hotel = (Hotel) ois.readObject(); 
+      ois.close();
+    } catch (IOException e) {
+        System.err.println("Lançada Exceção: IOException.");
+    } catch (ClassNotFoundException e) {
+      System.err.println("Lançada Exceção: ClassNotFoundException.");
+    }
   }
   
   /**
@@ -70,5 +92,9 @@ public class HotelManager {
    **/
   public final Hotel getHotel() {
     return _hotel;
+  }
+
+  public String getFileName() {
+    return _fileName;
   }
 }
