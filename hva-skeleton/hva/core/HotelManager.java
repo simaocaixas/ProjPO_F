@@ -84,7 +84,7 @@ public class HotelManager {
       throw new ImportFileException(filename, e);
     }
   } 
-  
+
   /**
    * Returns the zoo hotel managed by this instance.
    *

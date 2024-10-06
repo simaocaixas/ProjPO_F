@@ -22,10 +22,25 @@ public class Veterinarian extends Emplooye {
         }
     }
 
+    protected void removeResponsability(String idSpc) {
+        _species.remove(idSpc);
+    }
+
+    protected Set<String> getSpeciesIds() {
+        return Collections.unmodifiableSet(_species.keySet());
+    }
+
+    protected String speciesIdsToString() {
+        StringBuilder sb = new StringBuilder();
+        for (String idSpc : _species.keySet()) {
+            sb.append(idSpc).append(",");
+        }
+        return sb.substring(0, sb.length() - 1);
+    }
+
     @Override
-    protected String empToString() {
-        // TODO Auto-generated method stub
-        return null;
+    public String empToString() {
+        return "VET" + super.empToString() + (_species.size() == 0 ? "" : speciesIdsToString());
     }
     
 }

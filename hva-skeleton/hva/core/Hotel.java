@@ -1,7 +1,7 @@
 package hva.core;
 
 import hva.app.exception.*;
-import hva.core.Habitat;
+import hva.core.*;
 import hva.core.exception.*;
 import java.io.*;
 import java.util.*;
@@ -23,7 +23,7 @@ public class Hotel implements Serializable {
   // FIXME define contructor(s)
   // FIXME define more methods
 
-  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws UnknownSpeciesKeyException {
+  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws UnknownSpeciesKeyException, UnknownHabitatKeyException {
     
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
@@ -47,7 +47,6 @@ public class Hotel implements Serializable {
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
     
-    
 }
 
   public void registerEmployee(String idEmp, String nameEmp, String type) throws DuplicateEmployeeKeyException {
@@ -65,14 +64,15 @@ public class Hotel implements Serializable {
     }
 }
 
-  public void changeHabitat(String idHabi, int area) {
-
-      Habitat habitat = getHabitatById(idHabi);
-      habitat.changeHabitat(habitat, area);
-
+  public void changeHabitat(String idHabi, int area) throws UnknownHabitatKeyException {
+      try {
+        Habitat habitat = getHabitatById(idHabi);
+        habitat.changeHabitat(habitat, area);
+      } catch (UnknownHabitatKeyException e) {
+        throw new UnknownHabitatKeyException(idHabi);
+      }
   }
   
-
   public Specie getSpecieById(String idSpc) throws UnknownSpeciesKeyException {
 
     if (!_species.containsKey(idSpc)) {
@@ -80,11 +80,15 @@ public class Hotel implements Serializable {
     } else {
       return _species.get(idSpc);
     }
-
   }
 
-  public Habitat getHabitatById(String idHabi) {
-    return _habitats.get(idHabi);
+  public Habitat getHabitatById(String idHabi) throws UnknownHabitatKeyException {
+
+    if (!_habitats.containsKey(idHabi)) {
+      throw new UnknownHabitatKeyException(idHabi);
+    } else {
+      return _habitats.get(idHabi);
+    }
   }
 
   public List<Animal> getAllAnimals() {
@@ -92,7 +96,10 @@ public class Hotel implements Serializable {
     return Collections.unmodifiableList(animalList);
 }
 
-
+  public List<Emplooye> getAllEmployees() {
+    List<Emplooye> employeeList = new ArrayList<>(_employees.values());
+    return Collections.unmodifiableList(employeeList);
+  }
   
   /**
    * Read text input file and create corresponding domain entities.

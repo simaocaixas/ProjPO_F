@@ -17,7 +17,9 @@ public abstract class Emplooye {
 
     abstract protected void newResponsability(String idDepent) throws NoResponsibilityException;
 
-    abstract protected String empToString();
+    public String empToString() {
+        return "|" + idEmp() + "|" + nameEmp() + "|";
+    }
 
     protected Hotel hotel() {
         return _hotel;
