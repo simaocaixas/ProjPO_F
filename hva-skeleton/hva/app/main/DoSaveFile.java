@@ -35,7 +35,6 @@ class DoSaveFile extends Command<HotelManager> {
       _receiver.FileNameCheck();
       _receiver.saveAs(stringField("filenameToSaveAs"));
     } catch (FileNameAlreadyExistsExceptionCore ece) {
-      
       try {
         _receiver.save();
       } catch (IOException ece2) {
@@ -43,7 +42,6 @@ class DoSaveFile extends Command<HotelManager> {
       } catch (MissingFileAssociationException ece2) {
         System.err.println("Error saving file");
       }
-      
     } catch (IOException ece) {
         System.err.println("Error saving file");
     } catch (MissingFileAssociationException ece) {

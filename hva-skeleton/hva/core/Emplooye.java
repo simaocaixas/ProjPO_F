@@ -14,7 +14,6 @@ public abstract class Emplooye {
         _hotel = hotel;
     }
 
-
     abstract protected void newResponsability(String idSomething) throws HabitatNotKnown, SpeciesNotKnown;
 
     abstract protected String getType();

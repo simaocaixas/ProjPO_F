@@ -37,6 +37,6 @@ class DoRegisterAnimal extends Command<Hotel> {
       execute();
     } catch (HabitatNotKnown ece) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
-    }
+    } 
   }
 }
