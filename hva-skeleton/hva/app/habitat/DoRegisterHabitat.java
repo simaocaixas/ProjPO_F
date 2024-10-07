@@ -29,8 +29,8 @@ class DoRegisterHabitat extends Command<Hotel> {
       
       _receiver.registerHabitat(stringField("idHabi"), stringField("nameHabi"), integerField("area"));
 
-      // AQUI
     } catch (HabitatAlreadyThere e) {
+
       throw new DuplicateHabitatKeyException(stringField("idHabi"));
     } 
   

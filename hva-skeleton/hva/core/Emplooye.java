@@ -11,7 +11,6 @@ public abstract class Emplooye {
     protected Emplooye(Hotel hotel, String idEmp, String nameEmp) {
         _idEmp = idEmp;
         _namString = nameEmp;
-        
         _hotel = hotel;
     }
 

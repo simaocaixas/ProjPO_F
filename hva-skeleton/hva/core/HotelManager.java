@@ -2,12 +2,8 @@ package hva.core;
 
 import hva.core.exception.*;
 import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.*;
-
-import hva.core.exception.ImportFileException;
-import hva.core.exception.MissingFileAssociationException;
-import hva.core.exception.UnavailableFileException;
-import hva.core.exception.UnrecognizedEntryException;
 
 // FIXME import classes
 
@@ -18,7 +14,7 @@ import hva.core.exception.UnrecognizedEntryException;
 public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
-  private String _fileName = null;
+  private String _fileName = "";
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -28,8 +24,12 @@ public class HotelManager {
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
   public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-    // FIXME implement serialization method
-  }
+      try {
+        saveAs(_fileName);
+      } catch (IOException ece) {
+        throw new IOException(_fileName);
+      }
+    }
   
   /**
    * Saves the serialized application's state into the specified file. The current network is
@@ -40,17 +40,19 @@ public class HotelManager {
    * @throws MissingFileAssociationException if the current network does not have a file.
    * @throws IOException if there is some error while serializing the state of the network to disk.
    **/
-  public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException { // AQUI
+  public void saveAs(String filename)  throws FileNotFoundException, MissingFileAssociationException, IOException { // AQUI
     _fileName = filename;
+
     try {
-      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(_fileName + ".txt"));
+      ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(_fileName));
       oos.writeObject(_hotel);
       oos.close(); 
-    } catch (IOException e) {
-      System.err.println("Exceção Lançada: IOException.");
-    }
+    } catch (IOException ece) {
+      throw new IOException(_fileName);
+    } 
   }
-  
+
+
   /**
    * @param filename name of the file containing the serialized application's state
    *        to load.
@@ -59,7 +61,7 @@ public class HotelManager {
    **/
   public void load(String filename) throws UnavailableFileException { // AQUI
     try {
-      ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename + ".txt"));
+      ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
       _hotel = (Hotel) ois.readObject(); 
       ois.close();
     } catch (IOException e) {
@@ -92,6 +94,12 @@ public class HotelManager {
    **/
   public final Hotel getHotel() {
     return _hotel;
+  }
+
+  public void FileNameCheck() throws FileNameAlreadyExistsExceptionCore {
+    if (_fileName.length() != 0) {
+      throw new FileNameAlreadyExistsExceptionCore();
+    } 
   }
 
   public String getFileName() {
