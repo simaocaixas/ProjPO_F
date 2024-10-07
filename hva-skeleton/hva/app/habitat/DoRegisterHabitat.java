@@ -1,6 +1,7 @@
 package hva.app.habitat;
 
 import hva.core.Hotel;
+import hva.core.exception.HabitatAlreadyThere;
 import hva.app.habitat.Prompt;
 import hva.app.exception.DuplicateHabitatKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -29,11 +30,9 @@ class DoRegisterHabitat extends Command<Hotel> {
       _receiver.registerHabitat(stringField("idHabi"), stringField("nameHabi"), integerField("area"));
 
       // AQUI
-    } catch (DuplicateHabitatKeyException e) {
-
-        System.err.println("This habitat already exists!!!");
-
-    }
+    } catch (HabitatAlreadyThere e) {
+      throw new DuplicateHabitatKeyException(stringField("idHabi"));
+    } 
   
   }
 }

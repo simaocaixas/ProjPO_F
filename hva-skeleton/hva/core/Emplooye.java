@@ -1,5 +1,6 @@
 package hva.core;
 import hva.app.exception.*;
+import hva.core.exception.*;
 
 public abstract class Emplooye {
     
@@ -15,7 +16,9 @@ public abstract class Emplooye {
     }
 
 
-    abstract protected void newResponsability(String idDepent) throws NoResponsibilityException;
+    abstract protected void newResponsability(String idSomething) throws HabitatNotKnown, SpeciesNotKnown;
+
+    abstract protected String getType();
 
     public String empToString() {
         return "|" + idEmp() + "|" + nameEmp() + "|";

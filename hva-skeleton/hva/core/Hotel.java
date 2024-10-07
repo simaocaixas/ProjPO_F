@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.*;
 // FIXME import classes
 
-import hva.core.exception.UnrecognizedEntryException;
-
 public class Hotel implements Serializable {
 
   @Serial
@@ -23,7 +21,7 @@ public class Hotel implements Serializable {
   // FIXME define contructor(s)
   // FIXME define more methods
 
-  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws UnknownSpeciesKeyException, UnknownHabitatKeyException {
+  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnown, HabitatNotKnown {
     
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
@@ -31,6 +29,7 @@ public class Hotel implements Serializable {
     _animals.put(idAni,animal); 
 
   }
+
   public void registerSpecie(String idSpc, String nameSpc) {    
     
     Specie specie = new Specie(this, idSpc, nameSpc);       
@@ -38,22 +37,36 @@ public class Hotel implements Serializable {
 
   }
 
-  public void registerHabitat(String idHabi, String nameHabi, int area) throws DuplicateHabitatKeyException {
+  public void newResponsability(String idEmp, String idSomething) throws ResponsabilityNotThere, EmployeeNotKnown {
+
+    try {
+      Emplooye emplooye = this.getEmplooyeById(idEmp);
+      emplooye.newResponsability(idSomething);
+      } catch (EmployeeNotKnown ece) {
+        throw new EmployeeNotKnown(idEmp);
+      } catch (HabitatNotKnown ece) {
+        throw new ResponsabilityNotThere(idSomething);
+      } catch (SpeciesNotKnown ece) {
+        throw new ResponsabilityNotThere(idSomething);
+  }
+}
+
+  public void registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThere {
             
     // AQUI
     if(_habitats.containsKey(idHabi)) {
-      throw new DuplicateHabitatKeyException(idHabi);
+      throw new HabitatAlreadyThere(idHabi);
     }
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
     
 }
 
-  public void registerEmployee(String idEmp, String nameEmp, String type) throws DuplicateEmployeeKeyException {
+  public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThere {
     //FIXME implement method
     
     if (_employees.containsKey(idEmp)) {
-      throw new DuplicateEmployeeKeyException(idEmp);
+      throw new EmployeeAlreadyThere(idEmp);
     } 
     if (type.equals("VET")) {
       Veterinarian veterinarian = new Veterinarian(this, idEmp, nameEmp);
@@ -64,30 +77,39 @@ public class Hotel implements Serializable {
     }
 }
 
-  public void changeHabitat(String idHabi, int area) throws UnknownHabitatKeyException {
+  public void changeHabitat(String idHabi, int area) throws HabitatNotKnown {
       try {
         Habitat habitat = getHabitatById(idHabi);
         habitat.changeHabitat(habitat, area);
-      } catch (UnknownHabitatKeyException e) {
-        throw new UnknownHabitatKeyException(idHabi);
+      } catch (HabitatNotKnown e) {
+        throw new HabitatNotKnown(idHabi);
       }
   }
   
-  public Specie getSpecieById(String idSpc) throws UnknownSpeciesKeyException {
+  public Specie getSpecieById(String idSpc) throws SpeciesNotKnown {
 
     if (!_species.containsKey(idSpc)) {
-      throw new UnknownSpeciesKeyException(idSpc);
+      throw new SpeciesNotKnown(idSpc);
     } else {
       return _species.get(idSpc);
     }
   }
 
-  public Habitat getHabitatById(String idHabi) throws UnknownHabitatKeyException {
+  public Habitat getHabitatById(String idHabi) throws HabitatNotKnown {
 
     if (!_habitats.containsKey(idHabi)) {
-      throw new UnknownHabitatKeyException(idHabi);
+      throw new HabitatNotKnown(idHabi);
     } else {
       return _habitats.get(idHabi);
+    }
+  }
+
+  public Emplooye getEmplooyeById(String idEmp) throws EmployeeNotKnown {
+
+    if (!_employees.containsKey(idEmp)) {
+      throw new EmployeeNotKnown(idEmp);
+    } else {
+      return _employees.get(idEmp);
     }
   }
 

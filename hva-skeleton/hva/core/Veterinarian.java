@@ -2,6 +2,7 @@ package hva.core;
 import java.util.*;
 
 import hva.app.exception.*;
+import hva.core.exception.SpeciesNotKnown;
 
 public class Veterinarian extends Emplooye {
 
@@ -12,13 +13,13 @@ public class Veterinarian extends Emplooye {
     }
 
     @Override
-    protected void newResponsability(String idSpc) throws NoResponsibilityException {
+    protected void newResponsability(String idSpc) throws SpeciesNotKnown {
         try {
             Hotel hotel = hotel();
             Specie specie = hotel.getSpecieById(idSpc);
             _species.put(idSpc, specie);
-        } catch (UnknownSpeciesKeyException e) {
-            throw new NoResponsibilityException(idEmp(),idSpc);
+        } catch (SpeciesNotKnown e) {
+            throw new SpeciesNotKnown(idSpc);
         }
     }
 
@@ -36,6 +37,10 @@ public class Veterinarian extends Emplooye {
             sb.append(idSpc).append(",");
         }
         return sb.substring(0, sb.length() - 1);
+    }
+
+    protected String getType() {
+        return "VET";
     }
 
     @Override

@@ -1,7 +1,10 @@
 package hva.app.animal;
 
+import hva.core.Habitat;
 import hva.core.Hotel;
 import hva.core.Specie;
+import hva.core.exception.HabitatNotKnown;
+import hva.core.exception.SpeciesNotKnown;
 import hva.app.exception.DuplicateAnimalKeyException;
 import hva.app.exception.UnknownHabitatKeyException;
 import hva.app.exception.UnknownSpeciesKeyException;
@@ -28,10 +31,12 @@ class DoRegisterAnimal extends Command<Hotel> {
     try {
       Specie specie = _receiver.getSpecieById(stringField("idSpc"));
       _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
-    } catch (UnknownSpeciesKeyException exception) {
+    } catch (SpeciesNotKnown ece) {
       String nomeSpc = Form.requestString(Prompt.speciesName());
       _receiver.registerSpecie(stringField("idSpc"),nomeSpc);
       execute();
+    } catch (HabitatNotKnown ece) {
+      throw new UnknownHabitatKeyException(stringField("idHabi"));
     }
   }
 }

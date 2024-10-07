@@ -1,6 +1,7 @@
 package hva.app.employee;
 
 import hva.core.Hotel;
+import hva.core.exception.EmployeeAlreadyThere;
 import hva.app.exception.DuplicateEmployeeKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -34,9 +35,8 @@ class DoRegisterEmployee extends Command<Hotel> {
 
       _receiver.registerEmployee(stringField("idEmp"), stringField("nameEmp"), stringField("empType"));
 
-    } catch (DuplicateEmployeeKeyException e)
-     {
-      System.err.println("This employee already exists!!!");
+    } catch (EmployeeAlreadyThere e) {
+     throw new DuplicateEmployeeKeyException(empType);
     }
   }
 }
