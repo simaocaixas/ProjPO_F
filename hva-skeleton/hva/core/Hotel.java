@@ -12,6 +12,8 @@ public class Hotel implements Serializable {
   @Serial
   private static final long serialVersionUID = 202407081733L;
   
+  
+
   // FIXME define attributes  
   HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
   HashMap<String,Specie> _species = new HashMap<String,Specie>(); 

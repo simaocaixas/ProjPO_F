@@ -32,7 +32,7 @@ public class Habitat {              // COMPLETAMENTE INCOMPLETO
     public String AllTreesToString() {
         for (Tree tree : _trees.values()) {
             return tree.treeToString();
-        }
+        }   return null;
     }
 
     protected void addAnimal(Animal animal) {

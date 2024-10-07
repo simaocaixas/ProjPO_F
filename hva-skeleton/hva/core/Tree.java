@@ -3,7 +3,7 @@ import java.util.*;
 
 public abstract class Tree {
 
-    private String Season; 
+    private Season _season; 
     private String _idTree;
     private String _treeName;
     private int _age; 
@@ -11,11 +11,12 @@ public abstract class Tree {
     
     private Habitat _habitat;
     
-    protected Tree(Habitat habitat, String idTree, String treeName, int diff) {
+    protected Tree(Habitat habitat, String idTree, String treeName, int diff, Season season) {
         _habitat = habitat;
         _idTree = idTree;
         _treeName = treeName;
         _diff = diff;
+        _season = season;
     }
 
     protected String idTree() {
@@ -38,7 +39,15 @@ public abstract class Tree {
         _age = age;
     }
 
-    protected String treeString() {
+    protected Season season() {
+        return _season;
+    }
+
+    protected String seasonName() {
+        return _season.name();
+    }
+
+    protected String treeToString() {
         return "ARVORE" + "|" + idTree() + "|" + treeName() + "|" + age() + "|" + diff() + "|";
     }
 
