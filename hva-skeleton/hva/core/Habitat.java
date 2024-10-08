@@ -8,21 +8,20 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
 
     private int _area;
 
-    private Set<String> _notSutables = new HashSet<>();
-    private Set<String> _sutables = new HashSet<>();
+    private Set<String> _notSuitables = new HashSet<>();
+    private Set<String> _suitables = new HashSet<>();
     private HashMap<String, Animal> _animals = new HashMap<String, Animal>();
     private HashMap<String, Tree> _trees = new HashMap<String, Tree>();
 
-    private Hotel _hotel;
 
     public Habitat(Hotel hotel, String idHabi, String nome, int area) {
-        super(idHabi, nome);
-        _hotel = hotel;
+        super(idHabi, nome, hotel);
         _area = area;
     }
 
+    
     public String habitatToString() {
-        return "HABITAT" + "|" + id() + "|" + name() + "|" + area() + "|" + numberOfTrees();
+        return "HABITAT" + "|" + super.toString() + "|" + area() + "|" + numberOfTrees();
     }
 
     public String AllTreesToString() {
@@ -47,7 +46,6 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
         return _trees.size();
     }
 
-    // AQUI
     protected void changeHabitat(Habitat habitat, int area) {
 
         _area = area;

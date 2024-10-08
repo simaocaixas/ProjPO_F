@@ -3,13 +3,13 @@ import java.util.*;
 import hva.core.exception.*;
 import hva.app.exception.*;
 
-public class ZooKeeper extends Emplooye implements Responsibility {
+public class ZooKeeper extends Employee implements Responsibility {
 
     private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>();
 
 
-    public ZooKeeper(Hotel hotel, String idEmp, String nameEmp) {
-        super(hotel, idEmp, nameEmp);
+    public ZooKeeper(String idEmp, String nameEmp, Hotel hotel) {
+        super(idEmp, nameEmp, hotel);
     }
 
     @Override
@@ -38,10 +38,6 @@ public class ZooKeeper extends Emplooye implements Responsibility {
             sb.append(idHabi).append(",");
         }
         return sb.substring(0, sb.length() - 1);
-    }
-
-    protected String getType() {
-        return "TRT";
     }
 
     @Override

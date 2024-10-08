@@ -1,5 +1,15 @@
 *** testsBoth/A-01-14-M-ok.out	2024-10-03 22:33:10.499483000 +0100
---- testsBoth/A-01-14-M-ok.outhyp	2024-10-08 13:52:41.021327318 +0100
+--- testsBoth/A-01-14-M-ok.outhyp	2024-10-08 18:31:16.604911519 +0100
+***************
+*** 12,17 ****
+--- 12,18 ----
+  0 - Sair
+  Escolha uma opção: 2
+  Ficheiro a abrir: ap01.dat
++ Abrir ficheiro: Operação inválida: Problema ao abrir ficheiro: Erro a processar ficheiro ap01.dat
+  Menu Principal
+  1 - Criar ficheiro
+  2 - Abrir ficheiro
 ***************
 *** 32,43 ****
   4 - Calcular satisfação de animal
@@ -14,7 +24,7 @@
   Gestão de Animais
   1 - Visualizar todos os animais
   2 - Registar animal
---- 32,37 ----
+--- 33,38 ----
 ***************
 *** 67,75 ****
   6 - Mostrar árvores de habitat
@@ -26,4 +36,4 @@
   Gestão de Habitats
   1 - Visualizar todos os habitats
   2 - Registar habitat
---- 61,66 ----
+--- 62,67 ----

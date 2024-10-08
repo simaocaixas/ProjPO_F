@@ -39,7 +39,7 @@ public abstract class Tree extends Identifier {
     protected abstract String getBiologicalCycle(); 
 
     protected String treeToString() {
-        return "ARVORE" + "|" + id() + "|" + name() + "|" + age() + "|" + diff() + "|";
+        return "ARVORE" + "|" + super.toString() + "|" + age() + "|" + diff() + "|";
     }
 
 }

@@ -1,11 +1,10 @@
 *** testsBoth/A-01-18-M-ok.out	2024-10-03 22:33:10.825420000 +0100
---- testsBoth/A-01-18-M-ok.outhyp	2024-10-08 13:52:41.209321265 +0100
+--- testsBoth/A-01-18-M-ok.outhyp	2024-10-08 18:31:16.824908091 +0100
 ***************
-*** 19,33 ****
-  5 - Calcular satisfação de funcionário
+*** 20,33 ****
   0 - Sair
   Escolha uma opção: 1
-- TRT|A24|Rohit Figueiredo
+  TRT|A24|Rohit Figueiredo
 - VET|A25|Rohit Figueiredo 2
 - TRT|A34|Rohit Figueiredo 3
 - VET|A85|Rohit Figueiredo 4
@@ -17,4 +16,4 @@
   Gestão de Funcionários
   1 - Visualizar todos os funcionários
   2 - Registar funcionário
---- 19,24 ----
+--- 20,25 ----

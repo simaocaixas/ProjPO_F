@@ -2,15 +2,14 @@ package hva.core;
 import java.util.*;
 
 import hva.app.exception.*;
-import hva.core.exception.ResponsabilityNotThere;
-import hva.core.exception.SpeciesNotKnown;
+import hva.core.exception.*;
 
-public class Veterinarian extends Emplooye {
+public class Veterinarian extends Employee {
 
     private HashMap<String,Specie> _species = new HashMap<String,Specie>();
 
-    public Veterinarian(Hotel hotel, String idEmp, String nameEmp) {
-        super(hotel, idEmp, nameEmp);
+    public Veterinarian(String idEmp, String nameEmp, Hotel hotel) {
+        super(idEmp, nameEmp, hotel);
     }
 
     @Override
@@ -43,10 +42,6 @@ public class Veterinarian extends Emplooye {
             sb.append(idSpc).append(",");
         }
         return sb.substring(0, sb.length() - 1);
-    }
-
-    protected String getType() {
-        return "VET";
     }
 
     @Override

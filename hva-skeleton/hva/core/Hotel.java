@@ -18,8 +18,9 @@ public class Hotel implements Serializable {
   HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
   HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
   HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
-  HashMap<String,Emplooye> _employees = new HashMap<String,Emplooye>(); 
+  HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
   HashMap<String,Vacine> _vacines = new HashMap<String,Vacine>(); 
+  HashMap<String,Tree> _trees = new HashMap<String,Tree>(); 
 
   // FIXME define contructor(s)
   // FIXME define more methods
@@ -30,7 +31,7 @@ public class Hotel implements Serializable {
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
     _animals.put(idAni,animal); 
-    
+
   }
 
   public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThere {    
@@ -62,11 +63,11 @@ public class Hotel implements Serializable {
       throw new EmployeeNotKnown(idEmp);
     } 
 
-    Emplooye emplooye = getEmplooyeById(idEmp);
-    emplooye.addResponsibility(idSomething); 
+    Employee employee = getemployeeById(idEmp);
+    employee.addResponsibility(idSomething); 
 }
 
-  public void registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThere {
+  public Habitat registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThere {
             
     // AQUI
     if(_habitats.containsKey(idHabi)) {
@@ -75,7 +76,7 @@ public class Hotel implements Serializable {
 
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
-    
+    return habitat;
 }
 
   public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThere {
@@ -85,10 +86,10 @@ public class Hotel implements Serializable {
     } 
 
     if (type.equals("VET")) {
-      Veterinarian veterinarian = new Veterinarian(this, idEmp, nameEmp);
+      Veterinarian veterinarian = new Veterinarian(idEmp, nameEmp, this);
       _employees.put(idEmp, veterinarian);
     } else {
-      ZooKeeper zooKeeper = new ZooKeeper(this, idEmp, nameEmp);
+      ZooKeeper zooKeeper = new ZooKeeper(idEmp, nameEmp,this);
       _employees.put(idEmp,zooKeeper);
     }
 }
@@ -107,6 +108,15 @@ public class Hotel implements Serializable {
     }
   }
 
+  public Tree getTreeById(String idTree) throws TreeNotKnown {
+
+    if (!_trees.containsKey(idTree)) {
+      throw new TreeNotKnown(idTree);
+    } else {
+      return _trees.get(idTree);
+    }
+  }
+
   public Habitat getHabitatById(String idHabi) throws HabitatNotKnown {
 
     if (!_habitats.containsKey(idHabi)) {
@@ -116,7 +126,7 @@ public class Hotel implements Serializable {
     }
   }
 
-  public Emplooye getEmplooyeById(String idEmp) throws EmployeeNotKnown {
+  public Employee getemployeeById(String idEmp) throws EmployeeNotKnown {
 
     if (!_employees.containsKey(idEmp)) {
       throw new EmployeeNotKnown(idEmp);
@@ -127,11 +137,13 @@ public class Hotel implements Serializable {
 
   public List<Animal> getAllAnimals() {
     List<Animal> animalList = new ArrayList<>(_animals.values());
+    animalList.sort(Comparator.comparing(animal -> animal.id()));
     return Collections.unmodifiableList(animalList);
 }
 
-  public List<Emplooye> getAllEmployees() {
-    List<Emplooye> employeeList = new ArrayList<>(_employees.values());
+  public List<Employee> getAllEmployees() {
+    List<Employee> employeeList = new ArrayList<>(_employees.values());
+    employeeList.sort(Comparator.comparing(employeee -> employeee.id()));
     return Collections.unmodifiableList(employeeList);
   }
   
@@ -143,6 +155,8 @@ public class Hotel implements Serializable {
    * @throws IOException if there is an IO erro while processing the text file
    **/
   void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
-    //FIXME implement method
+    Parser parser = new Parser(this);
+    parser.parseFile(filename);
+    
   }
 }

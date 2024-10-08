@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.Reader;
-
-import java.util.Collection;
-import java.util.ArrayList;
+import java.util.*;
 
 // FIXME add other imports if needed
 
@@ -31,65 +29,102 @@ podem acontecer ao nível do domínio surante a concretização da funcionalidad
 **/
 
 public class Parser {
-  private Hotel _hotel;
+    private Hotel _hotel;
 
-  Parser(Hotel h) {
-    _hotel = h;
-  }
-
-  public void parseFile(String filename) throws IOException, UnrecognizedEntryException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-      String line;
-
-      while ((line = reader.readLine()) != null)
-        parseLine(line);
-
-    }
-  }
-
-  private void parseLine(String line) throws UnrecognizedEntryException {
-    String[] components = line.split("\\|");
-    switch(components[0]) {
-    case "ESPÉCIE" -> parseSpecies(components);
-    case "ANIMAL" -> parseAnimal(components);
-    default -> throw new UnrecognizedEntryException ("tipo de entrada inválido: " + components[0]);
-    }
-  }
-
-  // Parse a line with format ANIMAL|id|nome|idEspécie|idHabitat
-  private void parseAnimal(String[] components) throws UnrecognizedEntryException {
-    try {
-      String id = components[1];
-      String name = components[2];
-      String speciesId = components[3];
-      String habitatId = components[4];
-
-      _hotel.registerAnimal(id, name, speciesId, habitatId);
-    } catch (SpeciesNotKnown e) {
-      throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-    } catch (HabitatNotKnown e) {
-      throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-    }
-  }
-
-  private void parseSpecies(String[] components) throws UnrecognizedEntryException {
-    
-    try {
-    String id = components[1];
-    String name = components[2];
-    _hotel.registerSpecie(id, name);
-    } catch (SpeciesAlreadyThere e) {
-        throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+    Parser(Hotel h) {
+        _hotel = h;
     }
 
+    public void parseFile(String filename) throws IOException, UnrecognizedEntryException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+
+            while ((line = reader.readLine()) != null)
+                parseLine(line);
+        }
     }
 
+    private void parseLine(String line) throws UnrecognizedEntryException {
+        String[] components = line.split("\\|");
+        switch (components[0]) {
+            case "ESPÉCIE" -> parseSpecies(components);
+            case "ANIMAL" -> parseAnimal(components);
+            case "HABITAT" -> parseHabitat(components);
+            case "TRATADOR" -> parseEmployee(components, "TRT");
+            default -> throw new UnrecognizedEntryException("tipo de entrada inválido: " + components[0]);
+        }
+    }
+
+    // Parse a line with format ANIMAL|id|nome|idEspécie|idHabitat
+    private void parseAnimal(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            String speciesId = components[3];
+            String habitatId = components[4];
+
+            _hotel.registerAnimal(id, name, speciesId, habitatId);
+        } catch (SpeciesNotKnown e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        } catch (HabitatNotKnown e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
+
+    private void parseSpecies(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            _hotel.registerSpecie(id, name);
+        } catch (SpeciesAlreadyThere e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
+
+    private void parseEmployee(String[] components, String empType) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+
+            _hotel.registerEmployee(id, name, empType);
+
+            if (components.length == 4) {
+                for (String responsibility : components[3].split(","))
+                    _hotel.newResponsability(components[1], responsibility);
+            }
+        } catch (EmployeeNotKnown e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        } catch (EmployeeAlreadyThere e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        } catch (ResponsabilityNotThere e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
+
+    private void parseHabitat(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            int area = Integer.parseInt(components[3]);
+
+            Habitat hab = _hotel.registerHabitat(id, name, area);
+
+            if (components.length == 5) {
+                String[] listOfTree = components[4].split(",");
+                for (String treeKey : listOfTree) {
+                    try {
+                        Tree tree = _hotel.getTreeById(treeKey);
+                        hab.addTree(tree);
+                    } catch (TreeNotKnown e) {
+                        throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+                    }
+                }
+            }
+        } catch (HabitatAlreadyThere e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
 }
-
-
-
-
-
 
 /**
  * Nota: O bloco catch presente nos vários métodos parse desta classe deverá ter em conta

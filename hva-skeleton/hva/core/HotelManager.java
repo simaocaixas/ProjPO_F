@@ -52,24 +52,23 @@ public class HotelManager {
     } 
   }
 
-
   /**
    * @param filename name of the file containing the serialized application's state
    *        to load.
    * @throws UnavailableFileException if the specified file does not exist or there is
    *         an error while processing this file.
    **/
-  public void load(String filename) throws UnavailableFileException { // AQUI
-    try {
-      ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename));
-      _hotel = (Hotel) ois.readObject(); 
-      ois.close();
+  
+  public void load(String filename) throws UnavailableFileException {
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+        _hotel = (Hotel) ois.readObject(); 
     } catch (IOException e) {
-        System.err.println("Lançada Exceção: IOException.");
+        throw new UnavailableFileException(filename);
     } catch (ClassNotFoundException e) {
-      System.err.println("Lançada Exceção: ClassNotFoundException.");
+        throw new UnavailableFileException(filename);
     }
-  }
+}
+
   
   /**
    * Read text input file and initializes the current zoo hotel (which should be empty)
