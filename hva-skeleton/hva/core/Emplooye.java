@@ -2,7 +2,7 @@ package hva.core;
 import hva.app.exception.*;
 import hva.core.exception.*;
 
-public abstract class Emplooye {
+public abstract class Emplooye implements Responsibility {
     
     private String _idEmp;
     private String _namString;
@@ -14,7 +14,11 @@ public abstract class Emplooye {
         _hotel = hotel;
     }
 
-    abstract protected void newResponsability(String idSomething) throws HabitatNotKnown, SpeciesNotKnown;
+    @Override
+    public abstract void addResponsibility(String id) throws ResponsabilityNotThere;
+
+    @Override
+    public abstract void removeResponsibility(String id) throws ResponsabilityNotThere;
 
     abstract protected String getType();
 

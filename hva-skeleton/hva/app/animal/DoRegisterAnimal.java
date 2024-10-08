@@ -33,10 +33,10 @@ class DoRegisterAnimal extends Command<Hotel> {
       _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
     } catch (SpeciesNotKnown ece) {
       String nomeSpc = Form.requestString(Prompt.speciesName());
-      _receiver.registerSpecie(stringField("idSpc"),nomeSpc);
+      Specie specie = new Specie(_receiver, stringField("idSpc"), nomeSpc);
       execute();
     } catch (HabitatNotKnown ece) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
-    } 
+    }
   }
 }

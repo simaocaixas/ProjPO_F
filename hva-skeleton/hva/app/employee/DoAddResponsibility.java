@@ -29,7 +29,7 @@ class DoAddResponsibility extends Command<Hotel> {
     } catch (EmployeeNotKnown ece) {
       throw new UnknownEmployeeKeyException(stringField("idEmp"));
     } catch (ResponsabilityNotThere ece) {
-      throw new NoResponsibilityException(stringField("idRes"),  stringField("idRes"));
-    } 
+      throw new NoResponsibilityException(stringField("idEmp"),stringField("idRes"));
+    }
   }
 }

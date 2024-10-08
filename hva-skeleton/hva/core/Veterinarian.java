@@ -2,6 +2,7 @@ package hva.core;
 import java.util.*;
 
 import hva.app.exception.*;
+import hva.core.exception.ResponsabilityNotThere;
 import hva.core.exception.SpeciesNotKnown;
 
 public class Veterinarian extends Emplooye {
@@ -13,18 +14,23 @@ public class Veterinarian extends Emplooye {
     }
 
     @Override
-    protected void newResponsability(String idSpc) throws SpeciesNotKnown {
+    public void addResponsibility(String idSpc) throws ResponsabilityNotThere {
         try {
             Hotel hotel = hotel();
             Specie specie = hotel.getSpecieById(idSpc);
             _species.put(idSpc, specie);
-        } catch (SpeciesNotKnown e) {
-            throw new SpeciesNotKnown(idSpc);
+        } catch (SpeciesNotKnown ece) {
+            throw new ResponsabilityNotThere(idSpc);
         }
     }
 
-    protected void removeResponsability(String idSpc) {
-        _species.remove(idSpc);
+    @Override
+    public void removeResponsibility(String idSpc) throws ResponsabilityNotThere {
+        if (_species.containsKey(idSpc)) {
+            _species.remove(idSpc);
+        } else {
+            throw new ResponsabilityNotThere(idSpc);
+        }
     }
 
     protected Set<String> getSpeciesIds() {

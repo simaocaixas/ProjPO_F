@@ -19,6 +19,7 @@ public class Hotel implements Serializable {
   HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
   HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
   HashMap<String,Emplooye> _employees = new HashMap<String,Emplooye>(); 
+  HashMap<String,Vacine> _vacines = new HashMap<String,Vacine>(); 
 
   // FIXME define contructor(s)
   // FIXME define more methods
@@ -32,25 +33,37 @@ public class Hotel implements Serializable {
 
   }
 
-  public void registerSpecie(String idSpc, String nameSpc) {    
+  public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThere {    
     
+    if (_species.containsKey(idSpc)) {
+      throw new SpeciesAlreadyThere(idSpc);
+    }
+
     Specie specie = new Specie(this, idSpc, nameSpc);       
     _species.put(idSpc,specie);
 
   }
 
-  public void newResponsability(String idEmp, String idSomething) throws ResponsabilityNotThere, EmployeeNotKnown {
+  public void registerVacine(String idVac, String nameVac, Collection<String> species) throws SpeciesNotKnown {
+      
+      HashSet<Specie> speciesSet = new HashSet<Specie>();
+      for (String idSpc : species) {
+        Specie specie = getSpecieById(idSpc);
+        speciesSet.add(specie);
+      }
 
-    try {
-      Emplooye emplooye = this.getEmplooyeById(idEmp);
-      emplooye.newResponsability(idSomething);
-      } catch (EmployeeNotKnown ece) {
-        throw new EmployeeNotKnown(idEmp);
-      } catch (HabitatNotKnown ece) {
-        throw new ResponsabilityNotThere(idSomething);
-      } catch (SpeciesNotKnown ece) {
-        throw new ResponsabilityNotThere(idSomething);
-  }
+      Vacine vacine = new Vacine(this, idVac, nameVac, speciesSet);
+      _vacines.put(idVac,vacine);
+    }
+
+  public void newResponsability(String idEmp, String idSomething) throws EmployeeNotKnown, ResponsabilityNotThere{
+    
+    if (!_employees.containsKey(idEmp)) {
+      throw new EmployeeNotKnown(idEmp);
+    } 
+
+    Emplooye emplooye = getEmplooyeById(idEmp);
+    emplooye.addResponsibility(idSomething); 
 }
 
   public void registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThere {
@@ -59,17 +72,18 @@ public class Hotel implements Serializable {
     if(_habitats.containsKey(idHabi)) {
       throw new HabitatAlreadyThere(idHabi);
     }
+
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
     
 }
 
   public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThere {
-    //FIXME implement method
     
     if (_employees.containsKey(idEmp)) {
       throw new EmployeeAlreadyThere(idEmp);
     } 
+
     if (type.equals("VET")) {
       Veterinarian veterinarian = new Veterinarian(this, idEmp, nameEmp);
       _employees.put(idEmp, veterinarian);
@@ -80,12 +94,8 @@ public class Hotel implements Serializable {
 }
 
   public void changeHabitat(String idHabi, int area) throws HabitatNotKnown {
-      try {
-        Habitat habitat = getHabitatById(idHabi);
-        habitat.changeHabitat(habitat, area);
-      } catch (HabitatNotKnown e) {
-        throw new HabitatNotKnown(idHabi);
-      }
+      Habitat habitat = getHabitatById(idHabi);
+      habitat.changeHabitat(habitat, area);
   }
   
   public Specie getSpecieById(String idSpc) throws SpeciesNotKnown {
