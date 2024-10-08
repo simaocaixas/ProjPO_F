@@ -18,6 +18,7 @@ public class EvergreenTree extends Tree {
         super(habitat, idTree, treeName, diff, season);            
     }
 
+    @Override
     protected String getBiologicalCycle() {
         return _biologicalCycle.get(seasonName());
     }

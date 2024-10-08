@@ -25,12 +25,12 @@ public class Hotel implements Serializable {
   // FIXME define more methods
 
   public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnown, HabitatNotKnown {
-    
+
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
     _animals.put(idAni,animal); 
-
+    
   }
 
   public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThere {    

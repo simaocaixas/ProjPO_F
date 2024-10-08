@@ -2,15 +2,12 @@ package hva.core;
 import hva.app.exception.*;
 import hva.core.exception.*;
 
-public abstract class Emplooye implements Responsibility {
+public abstract class Emplooye extends Identifier implements Responsibility {
     
-    private String _idEmp;
-    private String _namString;
     private Hotel _hotel;
 
     protected Emplooye(Hotel hotel, String idEmp, String nameEmp) {
-        _idEmp = idEmp;
-        _namString = nameEmp;
+        super(idEmp, nameEmp);
         _hotel = hotel;
     }
 
@@ -23,19 +20,11 @@ public abstract class Emplooye implements Responsibility {
     abstract protected String getType();
 
     public String empToString() {
-        return "|" + idEmp() + "|" + nameEmp() + "|";
+        return "|" + id() + "|" + name() + "|";
     }
 
     protected Hotel hotel() {
         return _hotel;
-    }
-
-    protected String idEmp() {
-        return _idEmp;
-    }
-
-    protected String nameEmp() {
-        return _namString;
     }
 
 

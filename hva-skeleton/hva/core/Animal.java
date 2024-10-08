@@ -1,10 +1,7 @@
 package hva.core;
 import java.util.*;
 
-public class Animal {
-
-    private String _idANi; 
-    private String _nomeAni;
+public class Animal extends Identifier{
 
     private Hotel _hotel;
     
@@ -13,17 +10,12 @@ public class Animal {
     private Habitat _habitat; 
 
     public Animal(Hotel hotel, String idAni, String nomeAni, Specie specie, Habitat habitat) {
+        super(idAni, nomeAni);
         _hotel = hotel;
-        _idANi = idAni;
-        _nomeAni = nomeAni;
         _specie = specie;
         _habitat = habitat;
         _specie.addAnimal(this);
         _habitat.addAnimal(this);
-    }
-
-    protected String idAni() {
-        return _idANi;
     }
 
     protected String healthState() {
@@ -33,6 +25,6 @@ public class Animal {
     }
     
     public String aniToString() {
-        return "ANIMAL"+ "|" + _idANi + "|" + _nomeAni + "|" + _specie.idSpc() + "|" + (healthState() == null ? "VOID" : healthState()) + "|" + _habitat.idHabi();
+        return "ANIMAL"+ "|" + super.id() + "|" + super.name() + "|" + _specie.id() + "|" + (healthState() == null ? "VOID" : healthState()) + "|" + _habitat.id();
     }
 }

@@ -1,30 +1,19 @@
 package hva.core;
 import java.util.*;
 
-public abstract class Tree {
+public abstract class Tree extends Identifier {
 
     private Season _season; 
-    private String _idTree;
-    private String _treeName;
     private int _age; 
     private int _diff;
     
     private Habitat _habitat;
     
     protected Tree(Habitat habitat, String idTree, String treeName, int diff, Season season) {
+        super(idTree, treeName);
         _habitat = habitat;
-        _idTree = idTree;
-        _treeName = treeName;
         _diff = diff;
         _season = season;
-    }
-
-    protected String idTree() {
-        return _idTree;
-    }
-
-    protected String treeName() {
-        return _treeName;
     }
 
     protected int age() {
@@ -47,8 +36,10 @@ public abstract class Tree {
         return _season.name();
     }
 
+    protected abstract String getBiologicalCycle(); 
+
     protected String treeToString() {
-        return "ARVORE" + "|" + idTree() + "|" + treeName() + "|" + age() + "|" + diff() + "|";
+        return "ARVORE" + "|" + id() + "|" + name() + "|" + age() + "|" + diff() + "|";
     }
 
 }
