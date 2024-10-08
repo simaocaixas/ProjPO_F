@@ -16,7 +16,8 @@ public class EvergreenTree extends Tree {
     ));
 
     public EvergreenTree(Habitat habitat, String idTree, String treeName, int diff, Season season) {
-        super(habitat, idTree, treeName, diff, season);            
+        super(habitat, idTree, treeName, diff, season);          
+        habitat.addTree(this);  
     }
 
     @Override

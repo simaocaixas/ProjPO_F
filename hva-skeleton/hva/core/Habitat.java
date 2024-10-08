@@ -20,15 +20,27 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
         _area = area;
     }
 
-    
     public String habitatToString() {
-        return "HABITAT" + "|" + super.toString() + "|" + area() + "|" + numberOfTrees();
+
+        StringBuilder sb = new StringBuilder();
+
+        int treeCount = _trees.size(); // Total de árvores
+        int index = 0; // Índice do loop
+
+        sb.append(OnlyhabitatToString());
+        for (Tree tree : _trees.values()) {
+            sb.append(tree.treeToString()); // Adiciona a string da árvore
+            index++;
+            if (index < treeCount) {
+                sb.append("\n");
+            }
+        } 
+
+        return sb.toString();
     }
 
-    public String AllTreesToString() {
-        for (Tree tree : _trees.values()) {
-            return tree.treeToString();
-        }   return null;
+    protected String OnlyhabitatToString() {
+        return "HABITAT" + "|" + super.toString() + "|" + area() + "|" + numberOfTrees() + (numberOfTrees() == 0 ? "" : "\n");
     }
 
     protected void addAnimal(Animal animal) {

@@ -23,6 +23,8 @@ public class Hotel implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
 
+  private Season _season = Season.Primavera; 
+
   public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnown, HabitatNotKnown {
 
     Specie specie = getSpecieById(idSpc); 
@@ -53,6 +55,18 @@ public class Hotel implements Serializable {
 
       Vacine vacine = new Vacine(this, idVac, nameVac, speciesSet);
       _vacines.put(idVac,vacine);
+    }
+
+  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnown {
+      
+      Habitat habitat = getHabitatById(idHabi);
+      if (Type == "PERENE") {
+        EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
+        _trees.put(idTree,tree);
+      } else {
+        DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, diff, season());
+        _trees.put(idTree,tree);
+      }
     }
 
   public void newResponsability(String idEmp, String idSomething) throws EmployeeNotKnown, ResponsabilityNotThere{
@@ -133,6 +147,10 @@ public class Hotel implements Serializable {
     }
   }
 
+  public Season season() {
+    return _season;
+  }
+
   public List<Animal> getAllAnimals() {
     List<Animal> animalList = new ArrayList<>(_animals.values());
     animalList.sort(Comparator.comparing(animal -> animal.id()));
@@ -143,6 +161,12 @@ public class Hotel implements Serializable {
     List<Employee> employeeList = new ArrayList<>(_employees.values());
     employeeList.sort(Comparator.comparing(employeee -> employeee.id()));
     return Collections.unmodifiableList(employeeList);
+  }
+
+  public List<Habitat> getAllHabitats() {
+    List<Habitat> habitatsList = new ArrayList<>(_habitats.values());
+    habitatsList.sort(Comparator.comparing(habitat -> habitat.id()));
+    return Collections.unmodifiableList(habitatsList);
   }
   
   /**

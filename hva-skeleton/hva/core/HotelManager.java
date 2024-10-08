@@ -63,7 +63,7 @@ public class HotelManager {
     try {
       FileInputStream file = new FileInputStream(filename);
       ObjectInputStream objIn = new ObjectInputStream(file);
-      Hotel _hotel = (Hotel) objIn.readObject();
+      _hotel = (Hotel) objIn.readObject();
       objIn.close();
     } catch (IOException e) {
         throw new UnavailableFileException(filename);    // REVER ISTO REVER ISTO REVER ISTO REVER ISTO 
