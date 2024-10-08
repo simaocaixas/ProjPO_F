@@ -34,12 +34,6 @@ public class Identifier implements Serializable {
         return _hotel;
     }
 
-    public int compareTo(Identifier id) {
-        return _id.compareTo(id.id());
-    }
-
-    
-
     public String toString() {
         return _id + "|" + _name;
     }

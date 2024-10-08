@@ -2,9 +2,11 @@ package hva.app.habitat;
 
 import hva.core.Hotel;
 import hva.core.Tree;
-import hva.core.exception.HabitatNotKnown;
-import hva.app.exception.UnknownHabitatKeyException;
-import hva.app.exception.DuplicateTreeKeyException;
+import hva.core.exception.*;  
+import hva.app.exception.*;
+
+import pt.tecnico.uilib.forms.Form;
+
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
@@ -27,10 +29,20 @@ class DoAddTreeToHabitat extends Command<Hotel> {
   @Override
   protected void execute() throws CommandException {
     //FIXME implement command TO COMPLETE
+
+      String treeType = stringField("treeType");
+    
+      while (!treeType.equals("PERENE") && !treeType.equals("CADUCA")) {
+
+        treeType = Form.requestString(Prompt.treeType());
+      }
+
     try {
-    _receiver.registerTree(stringField("idHabi"), stringField("idTree"), stringField("nameTree"), integerField("age"), integerField("difficulty"),stringField("treeType"));
+      _receiver.registerTree(stringField("idHabi"), stringField("idTree"), stringField("nameTree"), integerField("age"), integerField("difficulty"),stringField("treeType"));
     } catch (HabitatNotKnown e) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
+    } catch (TreeAlreadyThere e) {
+      throw new DuplicateTreeKeyException(stringField("idTree"));
     }
   }
 }

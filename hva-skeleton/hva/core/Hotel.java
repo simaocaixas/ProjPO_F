@@ -57,9 +57,14 @@ public class Hotel implements Serializable {
       _vacines.put(idVac,vacine);
     }
 
-  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnown {
-      
+  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnown, TreeAlreadyThere{
+
       Habitat habitat = getHabitatById(idHabi);
+      
+      if (_trees.containsKey(idTree)) {
+        throw new TreeAlreadyThere(idTree);
+      }
+      
       if (Type == "PERENE") {
         EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
         _trees.put(idTree,tree);
