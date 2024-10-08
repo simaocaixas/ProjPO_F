@@ -2,6 +2,7 @@ package hva.core;
 import java.util.*;
 import hva.core.exception.*;
 import hva.app.exception.*;
+import java.io.Serializable;
 
 public class ZooKeeper extends Employee implements Responsibility {
 

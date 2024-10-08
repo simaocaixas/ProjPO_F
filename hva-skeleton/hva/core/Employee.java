@@ -1,4 +1,6 @@
 package hva.core;
+import java.io.Serializable;
+
 import hva.app.exception.*;
 import hva.core.exception.*;
 

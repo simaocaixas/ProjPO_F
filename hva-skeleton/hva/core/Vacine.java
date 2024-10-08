@@ -1,8 +1,9 @@
 package hva.core;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Vacine extends Identifier{
+public class Vacine extends Identifier {
 
     private HashSet<Specie> _species;
 

@@ -7,12 +7,7 @@ import java.io.*;
 import java.util.*;
 // FIXME import classes
 
-public class Hotel implements Serializable {
-
-  @Serial
-  private static final long serialVersionUID = 202407081733L;
-  
-  
+public class Hotel implements Serializable {  
 
   // FIXME define attributes  
   HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
@@ -24,6 +19,9 @@ public class Hotel implements Serializable {
 
   // FIXME define contructor(s)
   // FIXME define more methods
+
+  @Serial
+  private static final long serialVersionUID = 1L;
 
   public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnown, HabitatNotKnown {
 
