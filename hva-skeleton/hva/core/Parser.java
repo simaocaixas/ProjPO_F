@@ -51,7 +51,9 @@ public class Parser {
             case "ESPÉCIE" -> parseSpecies(components);
             case "ANIMAL" -> parseAnimal(components);
             case "HABITAT" -> parseHabitat(components);
+            case "VETERINÁRIO" -> parseEmployee(components, "VET");
             case "TRATADOR" -> parseEmployee(components, "TRT");
+            case "VACINA" -> parseVaccine(components);
             default -> throw new UnrecognizedEntryException("tipo de entrada inválido: " + components[0]);
         }
     }
@@ -99,6 +101,18 @@ public class Parser {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         } catch (ResponsabilityNotThere e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
+
+    // Parse a line with format VACINA|id|nome|idEspécie1,...,idEspécieN
+    private void parseVaccine(String[] components) throws UnrecognizedEntryException{
+        try {
+        String id = components[1];
+        String name = components[2];
+        String[] speciesIds = components.length == 4 ? components[3].split(",") : new String[0];
+        _hotel.registerVaccine(id, name, speciesIds);
+        } catch (SpeciesNotKnown e) {
+        throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
 

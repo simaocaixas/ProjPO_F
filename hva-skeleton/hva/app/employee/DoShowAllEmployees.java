@@ -20,7 +20,7 @@ class DoShowAllEmployees extends Command<Hotel> {
     //FIXME implement command
     List<Employee> employees = _receiver.getAllEmployees();
     for (Employee employee : employees) {
-      _display.addLine(employee.empToString());
+      _display.addLine(employee.toString());
     }
     _display.display();
   }

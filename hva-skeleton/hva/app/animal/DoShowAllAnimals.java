@@ -19,7 +19,7 @@ class DoShowAllAnimals extends Command<Hotel> {
   protected final void execute() {
     List<Animal> _animals = _receiver.getAllAnimals();
     for (Animal animal : _animals) {
-      _display.addLine(animal.aniToString());
+      _display.addLine(animal.toString());
     }
     _display.display();
   }

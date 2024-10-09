@@ -22,7 +22,7 @@ public class Animal extends Identifier{
         }  return "";
     }
     
-    public String aniToString() {
+    public String toString() {
         return "ANIMAL"+ "|" + super.toString() + "|" + _specie.id() + "|" + (healthState().length() == 0 ? "VOID" : healthState()) + "|" + _habitat.id();
     }
 }

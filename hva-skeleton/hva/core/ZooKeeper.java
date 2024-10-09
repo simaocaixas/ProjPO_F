@@ -42,7 +42,7 @@ public class ZooKeeper extends Employee implements Responsibility {
     }
 
     @Override
-    public String empToString() {
-        return "TRT" + super.empToString() + (_habitats.size() == 0 ? "" : habitatIdsToString());
+    public String toString() {
+        return "TRT" + super.toString() + (_habitats.size() == 0 ? "" : habitatIdsToString());
     }
 }

@@ -16,7 +16,7 @@ public abstract class Employee extends Identifier implements Responsibility {
     @Override
     public abstract void removeResponsibility(String id) throws ResponsabilityNotThere;
 
-    public String empToString() {
+    public String toString() {
         return "|" + super.toString();
     }
 

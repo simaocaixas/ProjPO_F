@@ -14,7 +14,7 @@ public class Hotel implements Serializable {
   HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
   HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
   HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
-  HashMap<String,Vacine> _vacines = new HashMap<String,Vacine>(); 
+  HashMap<String,Vaccine> _Vaccines = new HashMap<String,Vaccine>(); 
   HashMap<String,Tree> _trees = new HashMap<String,Tree>(); 
 
   // FIXME define contructor(s)
@@ -45,16 +45,16 @@ public class Hotel implements Serializable {
 
   }
 
-  public void registerVacine(String idVac, String nameVac, Collection<String> species) throws SpeciesNotKnown {
+  public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnown {
       
-      HashSet<Specie> speciesSet = new HashSet<Specie>();
+      List<Specie> speciesSet = new ArrayList<Specie>();
       for (String idSpc : species) {
         Specie specie = getSpecieById(idSpc);
         speciesSet.add(specie);
       }
 
-      Vacine vacine = new Vacine(this, idVac, nameVac, speciesSet);
-      _vacines.put(idVac,vacine);
+      Vaccine Vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
+      _Vaccines.put(idVac,Vaccine);
     }
 
   public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnown, TreeAlreadyThere{
@@ -172,6 +172,12 @@ public class Hotel implements Serializable {
     List<Habitat> habitatsList = new ArrayList<>(_habitats.values());
     habitatsList.sort(Comparator.comparing(habitat -> habitat.id()));
     return Collections.unmodifiableList(habitatsList);
+  }
+
+  public List<Vaccine> getAllVaccines() {
+    List<Vaccine> VaccineList = new ArrayList<>(_Vaccines.values());
+    VaccineList.sort(Comparator.comparing(Vaccine -> Vaccine.id()));
+    return Collections.unmodifiableList(VaccineList);
   }
   
   /**

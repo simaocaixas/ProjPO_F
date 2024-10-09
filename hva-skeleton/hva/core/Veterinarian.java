@@ -46,8 +46,8 @@ public class Veterinarian extends Employee {
     }
 
     @Override
-    public String empToString() {
-        return "VET" + super.empToString() + (_species.size() == 0 ? "" : speciesIdsToString());
+    public String toString() {
+        return "VET" + super.toString() + (_species.size() == 0 ? "" : speciesIdsToString());
     }
     
 }
