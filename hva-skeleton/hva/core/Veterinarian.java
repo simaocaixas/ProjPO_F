@@ -13,7 +13,6 @@ public class Veterinarian extends Employee {
         super(idEmp, nameEmp, hotel);
     }
 
-    @Override
     public void addResponsibility(String idSpc) throws ResponsabilityNotThere {
         try {
             Hotel hotel = hotel();
@@ -24,7 +23,6 @@ public class Veterinarian extends Employee {
         }
     }
 
-    @Override
     public void removeResponsibility(String idSpc) throws ResponsabilityNotThere {
         if (_species.containsKey(idSpc)) {
             _species.remove(idSpc);

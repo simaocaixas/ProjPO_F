@@ -4,7 +4,7 @@ import hva.core.exception.*;
 import hva.app.exception.*;
 import java.io.Serializable;
 
-public class ZooKeeper extends Employee implements Responsibility {
+public class ZooKeeper extends Employee {
 
     private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>();
 
@@ -13,7 +13,6 @@ public class ZooKeeper extends Employee implements Responsibility {
         super(idEmp, nameEmp, hotel);
     }
 
-    @Override
     public void addResponsibility(String idHabi) throws ResponsabilityNotThere {
         try {
             Hotel hotel = hotel();
@@ -24,7 +23,6 @@ public class ZooKeeper extends Employee implements Responsibility {
         }
     }
 
-    @Override
     public void removeResponsibility(String idHabi) throws ResponsabilityNotThere {
         if (_habitats.containsKey(idHabi)) {
             _habitats.remove(idHabi);
