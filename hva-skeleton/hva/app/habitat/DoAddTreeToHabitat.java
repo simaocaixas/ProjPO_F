@@ -39,9 +39,9 @@ class DoAddTreeToHabitat extends Command<Hotel> {
 
     try {
       _receiver.registerTree(stringField("idHabi"), stringField("idTree"), stringField("nameTree"), integerField("age"), integerField("difficulty"),stringField("treeType"));
-    } catch (HabitatNotKnown e) {
+    } catch (HabitatNotKnownException e) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
-    } catch (TreeAlreadyThere e) {
+    } catch (TreeAlreadyThereException e) {
       throw new DuplicateTreeKeyException(stringField("idTree"));
     }
   }

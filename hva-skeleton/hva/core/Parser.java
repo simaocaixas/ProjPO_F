@@ -4,11 +4,6 @@ import hva.core.exception.*;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.Reader;
-import java.io.Serializable;
-import java.util.*;
-
-// FIXME add other imports if needed
 
 /**
  * Esta solução assume que a classe Hotel já tem a seguinte funcionalidade
@@ -67,9 +62,9 @@ public class Parser {
             String habitatId = components[4];
 
             _hotel.registerAnimal(id, name, speciesId, habitatId);
-        } catch (SpeciesNotKnown e) {
+        } catch (SpeciesNotKnownException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (HabitatNotKnown e) {
+        } catch (HabitatNotKnownException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -79,7 +74,7 @@ public class Parser {
             String id = components[1];
             String name = components[2];
             _hotel.registerSpecie(id, name);
-        } catch (SpeciesAlreadyThere e) {
+        } catch (SpeciesAlreadyThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -95,11 +90,11 @@ public class Parser {
                 for (String responsibility : components[3].split(","))
                     _hotel.newResponsability(components[1], responsibility);
             }
-        } catch (EmployeeNotKnown e) {
+        } catch (EmployeeNotKnownException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (EmployeeAlreadyThere e) {
+        } catch (EmployeeAlreadyThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (ResponsabilityNotThere e) {
+        } catch (ResponsabilityNotThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -111,7 +106,7 @@ public class Parser {
         String name = components[2];
         String[] speciesIds = components.length == 4 ? components[3].split(",") : new String[0];
         _hotel.registerVaccine(id, name, speciesIds);
-        } catch (SpeciesNotKnown e) {
+        } catch (SpeciesNotKnownException e) {
         throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -130,12 +125,12 @@ public class Parser {
                     try {
                         Tree tree = _hotel.getTreeById(treeKey);
                         hab.addTree(tree);
-                    } catch (TreeNotKnown e) {
+                    } catch (TreeNotKnownException e) {
                         throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
                     }
                 }
             }
-        } catch (HabitatAlreadyThere e) {
+        } catch (HabitatAlreadyThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }

@@ -1,11 +1,6 @@
 package hva.core;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 public class DeciduousTree extends Tree {
     
     private Map<String, String> _biologicalCycle = new HashMap<>(Map.of(

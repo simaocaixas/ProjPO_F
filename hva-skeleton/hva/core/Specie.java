@@ -1,8 +1,7 @@
 package hva.core;
-import java.io.Serializable;
 import java.util.*;
 
-public class Specie extends Identifier {   // COMPLETAMENTE INCOMPLETO
+public class Specie extends Identifier {  
 
     private HashMap<String,Animal> _animals = new HashMap<String,Animal>();  
 

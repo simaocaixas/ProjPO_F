@@ -1,105 +1,115 @@
 package hva.core;
 
-import hva.app.exception.*;
-import hva.core.*;
 import hva.core.exception.*;
-import java.io.*;
 import java.util.*;
-// FIXME import classes
+import java.io.*;
 
 public class Hotel implements Serializable {  
 
-  // FIXME define attributes  
-  HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
-  HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
-  HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
-  HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
-  HashMap<String,Vaccine> _Vaccines = new HashMap<String,Vaccine>(); 
-  HashMap<String,Tree> _trees = new HashMap<String,Tree>(); 
-
-  // FIXME define contructor(s)
-  // FIXME define more methods
+  private HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
+  private HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
+  private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
+  private HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
+  private HashMap<String,Vaccine> _Vaccines = new HashMap<String,Vaccine>(); 
+  private HashMap<String,Tree> _trees = new HashMap<String,Tree>();
 
   @Serial
   private static final long serialVersionUID = 1L;
 
-  private Season _season = Season.Primavera; 
+  private Season _season; 
 
-  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnown, HabitatNotKnown {
+  private boolean _state;
+
+  public Hotel() {
+
+    _season = Season.Primavera;
+    _state = false;
+
+  }
+
+  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnownException, HabitatNotKnownException {
 
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
     _animals.put(idAni,animal); 
+    this.setState(true);
 
   }
 
-  public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThere {    
-    
-    if (_species.containsKey(idSpc)) {
-      throw new SpeciesAlreadyThere(idSpc);
+  public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThereException {    
+  
+    if (containsKeyIgnoreCase(_species,idSpc)) {
+      throw new SpeciesAlreadyThereException(idSpc);
     }
 
     Specie specie = new Specie(this, idSpc, nameSpc);       
     _species.put(idSpc,specie);
+    this.setState(true);
 
   }
 
-  public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnown {
-      
-      List<Specie> speciesSet = new ArrayList<Specie>();
-      for (String idSpc : species) {
-        Specie specie = getSpecieById(idSpc);
-        speciesSet.add(specie);
-      }
+  public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnownException {
 
-      Vaccine Vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
-      _Vaccines.put(idVac,Vaccine);
+    List<Specie> speciesSet = new ArrayList<Specie>();
+    for (String idSpc : species) {
+      Specie specie = getSpecieById(idSpc);
+      speciesSet.add(specie);
     }
 
-  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnown, TreeAlreadyThere{
+    Vaccine Vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
+    _Vaccines.put(idVac,Vaccine);
+    this.setState(true);  
 
-      Habitat habitat = getHabitatById(idHabi);
+  }
+
+  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnownException, TreeAlreadyThereException{
+
+    Habitat habitat = getHabitatById(idHabi);
       
-      if (_trees.containsKey(idTree)) {
-        throw new TreeAlreadyThere(idTree);
-      }
+    if (containsKeyIgnoreCase(_trees,idTree)) {
+      throw new TreeAlreadyThereException(idTree);
+    }
       
-      if (Type == "PERENE") {
-        EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
-        _trees.put(idTree,tree);
-      } else {
-        DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, diff, season());
-        _trees.put(idTree,tree);
-      }
+    if (Type == "PERENE") {
+      EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
+      _trees.put(idTree,tree);
+    } else {
+      DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, diff, season());
+      _trees.put(idTree,tree);
     }
 
-  public void newResponsability(String idEmp, String idSomething) throws EmployeeNotKnown, ResponsabilityNotThere{
+    this.setState(true);  
+  }
+
+  public void newResponsability(String idEmp, String idSomething) throws EmployeeNotKnownException, ResponsabilityNotThereException {
     
-    if (!_employees.containsKey(idEmp)) {
-      throw new EmployeeNotKnown(idEmp);
+    if (!containsKeyIgnoreCase(_employees,idEmp)) {
+      throw new EmployeeNotKnownException(idEmp);
     } 
 
-    Employee employee = getemployeeById(idEmp);
+    Employee employee = getEmployeeById(idEmp);
     employee.addResponsibility(idSomething); 
-}
 
-  public Habitat registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThere {
+    this.setState(true);
+  }
+
+  public Habitat registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThereException {
             
-    // AQUI
-    if(_habitats.containsKey(idHabi)) {
-      throw new HabitatAlreadyThere(idHabi);
+    if(containsKeyIgnoreCase(_habitats,idHabi)) {
+      throw new HabitatAlreadyThereException(idHabi);
     }
 
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
+    this.setState(true);
     return habitat;
-}
+  }
 
-  public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThere {
+  public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThereException {
     
-    if (_employees.containsKey(idEmp)) {
-      throw new EmployeeAlreadyThere(idEmp);
+    if (containsKeyIgnoreCase(_employees, idEmp)) {
+      throw new EmployeeAlreadyThereException(idEmp);
     } 
 
     if (type.equals("VET")) {
@@ -109,75 +119,86 @@ public class Hotel implements Serializable {
       ZooKeeper zooKeeper = new ZooKeeper(idEmp, nameEmp,this);
       _employees.put(idEmp,zooKeeper);
     }
-}
+    this.setState(true);
 
-  public void changeHabitat(String idHabi, int area) throws HabitatNotKnown {
-      Habitat habitat = getHabitatById(idHabi);
-      habitat.changeHabitat(habitat, area);
-  }
-  
-  public Specie getSpecieById(String idSpc) throws SpeciesNotKnown {
-
-    if (!_species.containsKey(idSpc)) {
-      throw new SpeciesNotKnown(idSpc);
-    } else {
-      return _species.get(idSpc);
-    }
   }
 
-  public Tree getTreeById(String idTree) throws TreeNotKnown {
-
-    if (!_trees.containsKey(idTree)) {
-      throw new TreeNotKnown(idTree);
-    } else {
-      return _trees.get(idTree);
-    }
+  public void changeHabitat(String idHabi, int area) throws HabitatNotKnownException {
+    Habitat habitat = getHabitatById(idHabi);
+    habitat.changeHabitat(habitat, area);
+    this.setState(true);
   }
 
-  public Habitat getHabitatById(String idHabi) throws HabitatNotKnown {
-
-    if (!_habitats.containsKey(idHabi)) {
-      throw new HabitatNotKnown(idHabi);
-    } else {
-      return _habitats.get(idHabi);
-    }
+  public Specie getSpecieById(String idSpc) throws SpeciesNotKnownException {
+    return getById(_species, idSpc, new SpeciesNotKnownException(idSpc));
   }
 
-  public Employee getemployeeById(String idEmp) throws EmployeeNotKnown {
+  public Tree getTreeById(String idTree) throws TreeNotKnownException {
+    return getById(_trees, idTree, new TreeNotKnownException(idTree));
+  }
 
-    if (!_employees.containsKey(idEmp)) {
-      throw new EmployeeNotKnown(idEmp);
-    } else {
-      return _employees.get(idEmp);
+  public Habitat getHabitatById(String idHabi) throws HabitatNotKnownException {
+    return getById(_habitats, idHabi, new HabitatNotKnownException(idHabi));
+  }
+
+  public Employee getEmployeeById(String idEmp) throws EmployeeNotKnownException {
+    return getById(_employees, idEmp, new EmployeeNotKnownException(idEmp));
+  }
+
+  private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
+    for (String k : map.keySet()) {
+        if (k.equalsIgnoreCase(key)) {
+            return true;
+        }
     }
+    return false;
+  }
+
+  private <T, E extends Throwable> T getById(Map<String, T> map, String id, E exception) throws E {
+    for (String key : map.keySet()) {
+        if (key.equalsIgnoreCase(id)) {
+            return map.get(key);
+        }
+    }
+    throw exception;
   }
 
   public Season season() {
     return _season;
   }
 
+  public List<Tree> getAllTrees() {
+    return getAllEntities(_trees);
+  }
+
   public List<Animal> getAllAnimals() {
-    List<Animal> animalList = new ArrayList<>(_animals.values());
-    animalList.sort(Comparator.comparing(animal -> animal.id()));
-    return Collections.unmodifiableList(animalList);
-}
+    return getAllEntities(_animals);
+  }
 
   public List<Employee> getAllEmployees() {
-    List<Employee> employeeList = new ArrayList<>(_employees.values());
-    employeeList.sort(Comparator.comparing(employeee -> employeee.id()));
-    return Collections.unmodifiableList(employeeList);
+    return getAllEntities(_employees);
   }
 
   public List<Habitat> getAllHabitats() {
-    List<Habitat> habitatsList = new ArrayList<>(_habitats.values());
-    habitatsList.sort(Comparator.comparing(habitat -> habitat.id()));
-    return Collections.unmodifiableList(habitatsList);
+    return getAllEntities(_habitats);
   }
 
   public List<Vaccine> getAllVaccines() {
-    List<Vaccine> VaccineList = new ArrayList<>(_Vaccines.values());
-    VaccineList.sort(Comparator.comparing(Vaccine -> Vaccine.id()));
-    return Collections.unmodifiableList(VaccineList);
+    return getAllEntities(_Vaccines);
+  }
+
+  public <T extends Identifier> List<T> getAllEntities(Map<String, T> entityMap) {
+    List<T> entityList = new ArrayList<>(entityMap.values());
+    entityList.sort(Comparator.comparing(T::id, String.CASE_INSENSITIVE_ORDER));
+    return Collections.unmodifiableList(entityList);
+  }
+
+  public void setState(Boolean state) {
+    _state = state;
+  }
+
+  public boolean getState() {
+    return _state;
   }
   
   /**

@@ -2,7 +2,7 @@ package hva.app.habitat;
 
 import hva.core.Habitat;
 import hva.core.Hotel;
-import hva.core.exception.HabitatNotKnown;
+import hva.core.exception.HabitatNotKnownException;
 
 import java.util.HashMap;
 
@@ -29,7 +29,7 @@ class DoChangeHabitatArea extends Command<Hotel> {
     
     try {
     _receiver.changeHabitat(stringField("idHabi"), integerField("area"));
-    } catch (HabitatNotKnown ece) {
+    } catch (HabitatNotKnownException ece) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
     }
   }

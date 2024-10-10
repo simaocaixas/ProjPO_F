@@ -4,7 +4,8 @@ import hva.core.HotelManager;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
+import hva.app.main.Prompt;
+
 
 /**
  * Command for creating a new zoo hotel.
@@ -16,6 +17,12 @@ class DoNewFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() throws CommandException {
-    //FIXME implement command
-  }
+
+    if(_receiver.hasUnsavedChanges() && Form.confirm(Prompt.saveBeforeExit())) {
+      DoSaveFile save = new DoSaveFile(_receiver);
+      save.execute();
+    }
+      _receiver.newHotel();
+      _receiver.setHotelState(false);
+    }
 }

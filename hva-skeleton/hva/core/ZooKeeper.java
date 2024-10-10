@@ -1,8 +1,6 @@
 package hva.core;
 import java.util.*;
 import hva.core.exception.*;
-import hva.app.exception.*;
-import java.io.Serializable;
 
 public class ZooKeeper extends Employee {
 
@@ -13,21 +11,21 @@ public class ZooKeeper extends Employee {
         super(idEmp, nameEmp, hotel);
     }
 
-    public void addResponsibility(String idHabi) throws ResponsabilityNotThere {
+    public void addResponsibility(String idHabi) throws ResponsabilityNotThereException {
         try {
             Hotel hotel = hotel();
             Habitat habitat = hotel.getHabitatById(idHabi);
             _habitats.put(idHabi, habitat);
-        } catch (HabitatNotKnown e) {
-            throw new ResponsabilityNotThere(idHabi);
+        } catch (HabitatNotKnownException e) {
+            throw new ResponsabilityNotThereException(idHabi);
         }
     }
 
-    public void removeResponsibility(String idHabi) throws ResponsabilityNotThere {
+    public void removeResponsibility(String idHabi) throws ResponsabilityNotThereException {
         if (_habitats.containsKey(idHabi)) {
             _habitats.remove(idHabi);
         } else {
-            throw new ResponsabilityNotThere(idHabi);
+            throw new ResponsabilityNotThereException(idHabi);
         }
     }
 

@@ -2,10 +2,6 @@ package hva.core;
 
 import hva.core.exception.*;
 import java.io.*;
-import java.nio.file.FileAlreadyExistsException;
-import java.util.*;
-
-// FIXME import classes
 
 /**
  * Class representing the manager of this application. It manages the current
@@ -65,6 +61,7 @@ public class HotelManager {
       ObjectInputStream objIn = new ObjectInputStream(file);
       _hotel = (Hotel) objIn.readObject();
       objIn.close();
+      _hotel.setState(false);
     } catch (IOException e) {
         throw new UnavailableFileException(filename);    // REVER ISTO REVER ISTO REVER ISTO REVER ISTO 
     } catch (ClassNotFoundException e) {
@@ -96,6 +93,20 @@ public class HotelManager {
    **/
   public final Hotel getHotel() {
     return _hotel;
+  }
+
+  public void newHotel() {
+    _hotel = new Hotel();
+    _fileName = "";
+  }
+
+  public boolean hasUnsavedChanges() {
+    return _hotel.getState();
+  }
+  
+  public void setHotelState(boolean bool) {
+
+    _hotel.setState(bool);
   }
 
   public void FileNameCheck() throws FileNameAlreadyExistsExceptionCore {

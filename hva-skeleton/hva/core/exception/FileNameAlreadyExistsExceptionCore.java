@@ -1,10 +1,9 @@
 package hva.core.exception;
 
 public class FileNameAlreadyExistsExceptionCore extends Exception {
-  private static final long serialVersionUID = 202407081733L;
 
   public FileNameAlreadyExistsExceptionCore(String idFile) {
-    super(idFile);
+    super("O nome do ficheiro já existe" + idFile);
   }
 
   public FileNameAlreadyExistsExceptionCore() {

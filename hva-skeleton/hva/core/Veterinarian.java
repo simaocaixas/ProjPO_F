@@ -1,8 +1,5 @@
 package hva.core;
-import java.io.Serializable;
 import java.util.*;
-
-import hva.app.exception.*;
 import hva.core.exception.*;
 
 public class Veterinarian extends Employee {
@@ -13,21 +10,21 @@ public class Veterinarian extends Employee {
         super(idEmp, nameEmp, hotel);
     }
 
-    public void addResponsibility(String idSpc) throws ResponsabilityNotThere {
+    public void addResponsibility(String idSpc) throws ResponsabilityNotThereException {
         try {
             Hotel hotel = hotel();
             Specie specie = hotel.getSpecieById(idSpc);
             _species.put(idSpc, specie);
-        } catch (SpeciesNotKnown ece) {
-            throw new ResponsabilityNotThere(idSpc);
+        } catch (SpeciesNotKnownException ece) {
+            throw new ResponsabilityNotThereException(idSpc);
         }
     }
 
-    public void removeResponsibility(String idSpc) throws ResponsabilityNotThere {
+    public void removeResponsibility(String idSpc) throws ResponsabilityNotThereException {
         if (_species.containsKey(idSpc)) {
             _species.remove(idSpc);
         } else {
-            throw new ResponsabilityNotThere(idSpc);
+            throw new ResponsabilityNotThereException(idSpc);
         }
     }
 

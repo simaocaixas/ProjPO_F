@@ -20,7 +20,7 @@ import hva.core.exception.*;
 class DoSaveFile extends Command<HotelManager> {
   DoSaveFile(HotelManager receiver) {
     super(Label.SAVE_FILE, receiver, r -> r.getHotel() != null);
-    
+  
     if(_receiver.getFileName().length() == 0) {
       addStringField("filenameToSaveAs", Prompt.newSaveAs());
     } else {
@@ -34,8 +34,10 @@ class DoSaveFile extends Command<HotelManager> {
     try {
       _receiver.FileNameCheck();
       _receiver.saveAs(stringField("filenameToSaveAs"));
+      
     } catch (FileNameAlreadyExistsExceptionCore ece) {
       try {
+        _receiver.setHotelState(false);
         _receiver.save();
       } catch (IOException ece2) {
         System.err.println("Error saving file");

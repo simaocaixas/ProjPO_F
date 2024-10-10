@@ -1,7 +1,7 @@
 package hva.app.employee;
 
 import hva.core.Hotel;
-import hva.core.exception.EmployeeAlreadyThere;
+import hva.core.exception.EmployeeAlreadyThereException;
 import hva.app.exception.DuplicateEmployeeKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -18,25 +18,18 @@ class DoRegisterEmployee extends Command<Hotel> {
     //FIXME add command fields
     addStringField("idEmp", Prompt.employeeKey());
     addStringField("nameEmp", Prompt.employeeName());
-    addStringField("empType", Prompt.employeeType());
+    addOptionField("empType", Prompt.employeeType(),"VET","TRT");
   }
   
   @Override 
   protected void execute() throws CommandException {
     
-    String empType = stringField("empType");
-    
-    while (!empType.equals("VET") && !empType.equals("TRT")) {
-
-        empType = Form.requestString(Prompt.employeeType());
-      }
-
     try {
 
       _receiver.registerEmployee(stringField("idEmp"), stringField("nameEmp"), stringField("empType"));
 
-    } catch (EmployeeAlreadyThere e) {
-     throw new DuplicateEmployeeKeyException(empType);
+    } catch (EmployeeAlreadyThereException e) {
+     throw new DuplicateEmployeeKeyException(stringField("idEmp"));
     }
   }
 }

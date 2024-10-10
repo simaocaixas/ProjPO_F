@@ -1,5 +1,4 @@
 package hva.core;
-
 import java.util.*;
 
 public class Vaccine extends Identifier  {

@@ -1,5 +1,4 @@
 package hva.core;
-import java.io.Serializable;
 import java.util.*;
 
 public class Animal extends Identifier{

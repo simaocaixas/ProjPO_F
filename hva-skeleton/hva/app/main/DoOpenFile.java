@@ -22,6 +22,11 @@ class DoOpenFile extends Command<HotelManager> {
 
   @Override
   protected final void execute() throws CommandException {
+    
+    if(_receiver.hasUnsavedChanges() && Form.confirm(Prompt.saveBeforeExit())) {
+      DoSaveFile save = new DoSaveFile(_receiver);
+      save.execute();
+    }
     try {
         _receiver.load(stringField("filenameToOpen"));
       } catch (UnavailableFileException efe) {

@@ -26,9 +26,9 @@ class DoAddResponsibility extends Command<Hotel> {
 
     try {
       _receiver.newResponsability(stringField("idEmp"), stringField("idRes"));
-    } catch (EmployeeNotKnown ece) {
+    } catch (EmployeeNotKnownException ece) {
       throw new UnknownEmployeeKeyException(stringField("idEmp"));
-    } catch (ResponsabilityNotThere ece) {
+    } catch (ResponsabilityNotThereException ece) {
       throw new NoResponsibilityException(stringField("idEmp"),stringField("idRes"));
     }
   }
