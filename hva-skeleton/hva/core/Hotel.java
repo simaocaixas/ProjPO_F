@@ -5,7 +5,18 @@ import java.util.*;
 import java.io.*;
 
 /**
- * 
+ * This class {@code Hotel} represents a hotel that has animals, species, habitats, trees, employees, vaccines and vaccines aplicationns. <p>
+ * This class provides information and functionalities to handle the operations related to the entities cited above.    <p>
+ * More description if needed.  <p>
+ * Possible use of HTML paragraph breaks. <p>
+ * Possible use on in-line tags {@link NameClass}  <p>
+ * First block tag ends description section.
+ *
+ * @author Firstname Lastname
+ * @version 1.0
+ * @see <a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/javadoc.html">javadocs documentation</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Javadoc">javadocs at Wikipedia</a>
+ * @see <a href="http://docs.oracle.com/javase/tutorial/java/package/index.html">package documentation</a>
  */
 
 public class Hotel implements Serializable {  
@@ -31,6 +42,17 @@ public class Hotel implements Serializable {
     _state = false;
 
   }
+
+  /**
+   * Registers a new animal and add it to Hotel's animal's hashtable
+   * 
+   * @param idAni represents the an
+   * @param nameAni
+   * @param idSpc
+   * @param idhabi
+   * @throws SpeciesNotKnownException if some entry is not correct
+   * @throws HabitatNotKnownException if there is an IO erro while processing the text file
+   **/
 
   public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnownException, HabitatNotKnownException {
 

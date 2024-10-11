@@ -20,12 +20,12 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
 
         StringBuilder sb = new StringBuilder();
 
-        int treeCount = _trees.size(); // Total de árvores
-        int index = 0; // Índice do loop
+        int treeCount = _trees.size(); 
+        int index = 0; 
 
         sb.append(OnlyhabitatToString());
         for (Tree tree : _trees.values()) {
-            sb.append(tree.treeToString()); // Adiciona a string da árvore
+            sb.append(tree.treeToString()); 
             index++;
             if (index < treeCount) {
                 sb.append("\n");

@@ -119,7 +119,8 @@ public class Parser {
             String name = components[2];
             int area = Integer.parseInt(components[3]);
 
-            Habitat hab = _hotel.registerHabitat(id, name, area);
+            _hotel.registerHabitat(id, name, area);
+            Habitat hab = _hotel.getHabitatById(id);
 
             if (components.length == 5) {
                 String[] listOfTree = components[4].split(",");
@@ -134,7 +135,10 @@ public class Parser {
             }
         } catch (HabitatAlreadyThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        } catch (HabitatNotKnownException e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
+
     }
 }
 
