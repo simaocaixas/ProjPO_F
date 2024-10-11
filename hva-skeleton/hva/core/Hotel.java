@@ -4,7 +4,12 @@ import hva.core.exception.*;
 import java.util.*;
 import java.io.*;
 
+/**
+ * 
+ */
+
 public class Hotel implements Serializable {  
+
 
   private HashMap<String,Animal> _animals = new HashMap<String,Animal>(); 
   private HashMap<String,Specie> _species = new HashMap<String,Specie>(); 

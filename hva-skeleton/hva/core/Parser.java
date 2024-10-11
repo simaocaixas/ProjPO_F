@@ -38,6 +38,8 @@ public class Parser {
             while ((line = reader.readLine()) != null)
                 parseLine(line);
         }
+
+        _hotel.setState(true);
     }
 
     private void parseLine(String line) throws UnrecognizedEntryException {
