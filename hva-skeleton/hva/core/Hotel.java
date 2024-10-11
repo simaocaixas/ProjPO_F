@@ -5,12 +5,12 @@ import java.util.*;
 import java.io.*;
 
 /**
- * This class {@code Hotel} represents a hotel that has animals, species, habitats, trees, employees, vaccines and vaccines aplicationns. <p>
- * This class provides information and functionalities to handle the operations related to the entities cited above.    <p>
- * More description if needed.  <p>
- * Possible use of HTML paragraph breaks. <p>
- * Possible use on in-line tags {@link NameClass}  <p>
- * First block tag ends description section.
+ * This class represents a hotel that has animals, species, habitats, trees, employees, vaccines and registers. <p>
+ * This class provides information and functionalities to handle the operations related to the objects given above. <p>
+ * This class implements interface Serializable to allow instances of this class to be serialized and deserialized.
+ * @author Simao Caixas ist1109632, Antonio Faia ist1109828
+ * @version 1.0
+ * 
  */
 
 public class Hotel implements Serializable {  
@@ -47,7 +47,6 @@ public class Hotel implements Serializable {
    * @throws SpeciesNotKnownException if the species is not found
    * @throws HabitatNotKnownException if the habitat is not found
    */
-
   public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnownException, HabitatNotKnownException {
 
     Specie specie = getSpecieById(idSpc); 
@@ -65,7 +64,6 @@ public class Hotel implements Serializable {
    * @param nameSpc the species name
    * @throws SpeciesAlreadyThereException if the species already exists in the hashtable
    */
-
   public void registerSpecie(String idSpc, String nameSpc) throws SpeciesAlreadyThereException {    
   
     if (containsKeyIgnoreCase(_species,idSpc)) {
@@ -79,14 +77,13 @@ public class Hotel implements Serializable {
   }
 
   /**
-   * Registers a new vaccine and associates it the species it can vaccinate.
+   * Registers a new vaccine and associates it with the species it can vaccinate.
    * 
    * @param idVac the vaccines unique ID
    * @param nameVac the vaccine name
-   * @param species an array of species IDs that the vaccine applies to
+   * @param species an array of species IDs that be vaccinated by this vaccine
    * @throws SpeciesNotKnownException if any species is not found
    */
-  
   public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnownException {
 
     List<Specie> speciesSet = new ArrayList<Specie>();
@@ -113,7 +110,6 @@ public class Hotel implements Serializable {
    * @throws HabitatNotKnownException if the habitat is not found
    * @throws TreeAlreadyThereException if the tree already exists in the hashtable
    */
-
   public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnownException, TreeAlreadyThereException{
 
     Habitat habitat = getHabitatById(idHabi);
@@ -141,7 +137,6 @@ public class Hotel implements Serializable {
    * @throws EmployeeNotKnownException if the employee is not found
    * @throws ResponsabilityNotThereException if the responsibility does not exist
    */
-
   public void newResponsability(String idEmp, String idResponsability) throws EmployeeNotKnownException, ResponsabilityNotThereException {
     
     if (!containsKeyIgnoreCase(_employees,idEmp)) {
@@ -154,7 +149,15 @@ public class Hotel implements Serializable {
     this.setState(true);
   }
 
-  public Habitat registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThereException {
+  /**
+   * Registers a new habitat in the hotel's habitat hashtable.
+   * 
+   * @param idHabi the habitat's unique ID
+   * @param nameHabi the habitat's name
+   * @param area the area size of the habitat
+   * @throws HabitatAlreadyThereException if a habitat with the same ID already exists in the hashtable
+   */
+  public void registerHabitat(String idHabi, String nameHabi, int area) throws HabitatAlreadyThereException {
             
     if(containsKeyIgnoreCase(_habitats,idHabi)) {
       throw new HabitatAlreadyThereException(idHabi);
@@ -163,7 +166,6 @@ public class Hotel implements Serializable {
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
     _habitats.put(idHabi, habitat);
     this.setState(true);
-    return habitat;
   }
 
   /**
@@ -174,7 +176,6 @@ public class Hotel implements Serializable {
    * @param type the type of employee, either "VET" for Veterinarian or any other string for ZooKeeper
    * @throws EmployeeAlreadyThereException if an employee with the same ID already exists
    */
-
   public void registerEmployee(String idEmp, String nameEmp, String type) throws EmployeeAlreadyThereException {
     
     if (containsKeyIgnoreCase(_employees, idEmp)) {
@@ -193,13 +194,12 @@ public class Hotel implements Serializable {
   }
 
   /**
- * Modifies the area of an existing habitat.
- * 
- * @param idHabi the ID of the habitat to be changed
- * @param area the new area for the habitat
- * @throws HabitatNotKnownException if the habitat with the specified ID is not found
- */
-
+   * Modifies the area of an existing habitat.
+   * 
+   * @param idHabi the ID of the habitat to be changed
+   * @param area the new area for the habitat
+   * @throws HabitatNotKnownException if the habitat with the specified ID is not found
+   */
   public void changeHabitat(String idHabi, int area) throws HabitatNotKnownException {
     Habitat habitat = getHabitatById(idHabi);
     habitat.changeHabitat(habitat, area);
@@ -227,9 +227,8 @@ public class Hotel implements Serializable {
    * 
    * @param map the map to check
    * @param key the key to search for (case-insensitive)
-   * @return {@code true} if the map contains the key, {@code false} otherwise
+   * @return true if the map contains the key, otherwise returns false
    */
-
   private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
     for (String k : map.keySet()) {
         if (k.equalsIgnoreCase(key)) {
@@ -251,7 +250,6 @@ public class Hotel implements Serializable {
    * @return the entity corresponding to the given ID
    * @throws E the exception thrown if the entity is not found
    */
-
   private <T, E extends Throwable> T getById(Map<String, T> map, String id, E exception) throws E {
     for (String key : map.keySet()) {
         if (key.equalsIgnoreCase(id)) {
@@ -263,6 +261,14 @@ public class Hotel implements Serializable {
 
   public Season season() {
     return _season;
+  }
+
+  public void setState(Boolean state) {
+    _state = state;
+  }
+
+  public boolean getState() {
+    return _state;
   }
 
   public List<Tree> getAllTrees() {
@@ -286,25 +292,17 @@ public class Hotel implements Serializable {
   }
 
   /**
-   * Retrieves all entities from the specified map, sorts them by their IDs (case-insensitive), and returns an unmodifiable list.
+   * Retrieves all entities from the specified hashmap, sorts them by their IDs (case-insensitive), 
+   * and returns an unmodifiable list.
    * 
-   * @param <T> the type of entities stored in the map, which must implement {@code Identifier} interface
+   * @param <T> the type of entities stored in the map, which must implement interface Identifier 
    * @param entityMap the map containing entities with string keys
    * @return an unmodifiable list of all entities, sorted by their IDs in a case-insensitive manner
    */
-
   public <T extends Identifier> List<T> getAllEntities(Map<String, T> entityMap) {
     List<T> entityList = new ArrayList<>(entityMap.values());
     entityList.sort(Comparator.comparing(T::id, String.CASE_INSENSITIVE_ORDER));
     return Collections.unmodifiableList(entityList);
-  }
-
-  public void setState(Boolean state) {
-    _state = state;
-  }
-
-  public boolean getState() {
-    return _state;
   }
   
   /**
