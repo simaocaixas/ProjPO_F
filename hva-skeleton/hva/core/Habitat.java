@@ -35,6 +35,12 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
         return sb.toString();
     }
 
+    protected List<Animal> getAllAnimals() {
+        List<Animal> animals = new ArrayList<>(_animals.values());
+        animals.sort(Comparator.comparing(Animal::id, String.CASE_INSENSITIVE_ORDER));
+        return Collections.unmodifiableList(animals);
+    }
+    
     protected String OnlyhabitatToString() {
         return "HABITAT" + "|" + super.toString() + "|" + area() + "|" + numberOfTrees() + (numberOfTrees() == 0 ? "" : "\n");
     }

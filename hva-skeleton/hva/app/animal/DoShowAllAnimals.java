@@ -1,6 +1,5 @@
 package hva.app.animal;
 
-
 import hva.core.Hotel;
 import hva.core.Animal; // ?????? 
 import pt.tecnico.uilib.menus.Command;

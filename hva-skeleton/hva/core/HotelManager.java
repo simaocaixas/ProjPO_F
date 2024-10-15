@@ -48,7 +48,6 @@ public class HotelManager {
     } 
   }
 
-
   /**
    * @param filename name of the file containing the serialized application's state
    *        to load.
@@ -68,7 +67,6 @@ public class HotelManager {
         throw new UnavailableFileException(filename);   // REVER ISTO REVER ISTO REVER ISTOREVER ISTOREVER ISTO
   }
 }
-  
   
   /**
    * Read text input file and initializes the current zoo hotel (which should be empty)
@@ -117,5 +115,9 @@ public class HotelManager {
 
   public String getFileName() {
     return _fileName;
+  }
+
+  public double calculateSatisfaction() {
+    return _hotel.claculateSatisfaction();
   }
 }

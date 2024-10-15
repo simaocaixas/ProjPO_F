@@ -1,5 +1,6 @@
 package hva.core;
 
+import hva.core.Employee;
 import hva.core.exception.*;
 import java.util.*;
 import java.io.*;
@@ -36,6 +37,42 @@ public class Hotel implements Serializable {
     _state = false;
 
   }
+
+  public double claculateSatisfaction() {
+
+    double total = 0;
+
+    for (Animal animal : _animals.values()) {
+    ///   total += animal.calculateSatisfaction();      <--- TO DO! 
+    }
+
+    for (Employee employee : _employees.values()) {
+    ///   total += employee.calculateSatisfaction();    <--- TO DO!
+    }
+
+    return total;
+  }
+
+public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownException {
+    
+  Habitat habitat = getHabitatById(idHabi);
+  
+  List<Animal> animals = habitat.getAllAnimals();
+  
+  StringBuilder sb = new StringBuilder();
+  
+  for (Animal animal : animals) {
+        sb.append(animal.toString());
+        sb.append("\n");
+  
+  }
+
+  if (sb.length() > 0) {
+    sb.setLength(sb.length() - 1);
+  }
+  
+      return sb.toString();
+}
 
   /**
    * Registers a new animal and adds it to the hotel's animal hashtable.
