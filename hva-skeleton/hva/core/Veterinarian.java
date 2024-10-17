@@ -28,11 +28,11 @@ public class Veterinarian extends Employee {
         }
     }
 
-    protected Set<String> getSpeciesIds() {
+    Set<String> getSpeciesIds() {
         return Collections.unmodifiableSet(_species.keySet());
     }
 
-    protected String speciesIdsToString() {
+    String speciesIdsToString() {
         StringBuilder sb = new StringBuilder();
         for (String idSpc : _species.keySet()) {
             sb.append(idSpc).append(",");

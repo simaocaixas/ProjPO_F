@@ -21,7 +21,7 @@ public class Hotel implements Serializable {
   private HashMap<String,Specie> _species = new HashMap<String,Specie>(); 
   private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
   private HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
-  private HashMap<String,Vaccine> _Vaccines = new HashMap<String,Vaccine>(); 
+  private HashMap<String,Vaccine> _vaccines = new HashMap<String,Vaccine>(); 
   private HashMap<String,Tree> _trees = new HashMap<String,Tree>();
 
   @Serial
@@ -52,27 +52,6 @@ public class Hotel implements Serializable {
 
     return total;
   }
-
-public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownException {
-    
-  Habitat habitat = getHabitatById(idHabi);
-  
-  List<Animal> animals = habitat.getAllAnimals();
-  
-  StringBuilder sb = new StringBuilder();
-  
-  for (Animal animal : animals) {
-        sb.append(animal.toString());
-        sb.append("\n");
-  
-  }
-
-  if (sb.length() > 0) {
-    sb.setLength(sb.length() - 1);
-  }
-  
-      return sb.toString();
-}
 
   /**
    * Registers a new animal and adds it to the hotel's animal hashtable.
@@ -129,8 +108,8 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
       speciesSet.add(specie);
     }
 
-    Vaccine Vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
-    _Vaccines.put(idVac,Vaccine);
+    Vaccine vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
+    _vaccines.put(idVac,vaccine);
     this.setState(true);  
 
   }
@@ -147,7 +126,7 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
    * @throws HabitatNotKnownException if the habitat is not found
    * @throws TreeAlreadyThereException if the tree already exists in the hashtable
    */
-  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String Type) throws HabitatNotKnownException, TreeAlreadyThereException{
+  public void registerTree(String idHabi, String idTree, String nameTree, int age, int diff, String type) throws HabitatNotKnownException, TreeAlreadyThereException{
 
     Habitat habitat = getHabitatById(idHabi);
       
@@ -155,7 +134,7 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
       throw new TreeAlreadyThereException(idTree);
     }
       
-    if (Type == "PERENE") {
+    if (type.equals("PERENE")) {
       EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
       _trees.put(idTree,tree);
     } else {
@@ -267,10 +246,8 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
    * @return true if the map contains the key, otherwise returns false
    */
   private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
-    for (String k : map.keySet()) {
-        if (k.equalsIgnoreCase(key)) {
-            return true;
-        }
+    if (map.containsKey(key)) {
+      return true;
     }
     return false;
   }
@@ -288,12 +265,10 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
    * @throws E the exception thrown if the entity is not found
    */
   private <T, E extends Throwable> T getById(Map<String, T> map, String id, E exception) throws E {
-    for (String key : map.keySet()) {
-        if (key.equalsIgnoreCase(id)) {
-            return map.get(key);
-        }
+    if (map.containsKey(id.equalsIgnoreCase()))
     }
     throw exception;
+  }
   }
 
   public Season season() {
@@ -325,7 +300,7 @@ public String showAnimalsFromOneHabitat(String idHabi) throws HabitatNotKnownExc
   }
 
   public List<Vaccine> getAllVaccines() {
-    return getAllEntities(_Vaccines);
+    return getAllEntities(_vaccines);
   }
 
   /**

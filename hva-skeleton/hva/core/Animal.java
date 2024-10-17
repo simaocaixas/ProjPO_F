@@ -15,7 +15,7 @@ public class Animal extends Identifier{
         _habitat.addAnimal(this);
     }
 
-    protected String healthState() {
+    String healthState() {
         for (Register register : _registers) {
                 return register.toString();
         }  return "";

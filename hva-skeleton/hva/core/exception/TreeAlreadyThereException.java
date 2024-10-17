@@ -2,7 +2,7 @@ package hva.core.exception;
 
 public class TreeAlreadyThereException extends Exception {
 
-  String _idTree;
+  private String _idTree;
 
   public TreeAlreadyThereException(String idTree) {
     super("Árvore já registada" + idTree);

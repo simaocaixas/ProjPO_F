@@ -9,7 +9,7 @@ public class Specie extends Identifier {
         super(idSpc, nomeSpc, hotel);
     }
 
-    protected void addAnimal(Animal animal) {
+    void addAnimal(Animal animal) {
         _animals.put(animal.id(), animal);
     }
 

@@ -20,8 +20,8 @@ class DoShowAllHabitats extends Command<Hotel> {
   
   @Override
   protected void execute() {
-    List<Habitat> _habitats = _receiver.getAllHabitats();
-    for (Habitat habitat : _habitats) {
+    List<Habitat> habitats = _receiver.getAllHabitats();
+    for (Habitat habitat : habitats) {
       _display.addLine(habitat.habitatToString());
     }
     _display.display();

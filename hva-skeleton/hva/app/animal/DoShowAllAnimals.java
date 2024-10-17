@@ -16,8 +16,8 @@ class DoShowAllAnimals extends Command<Hotel> {
   
   @Override
   protected final void execute() {
-    List<Animal> _animals = _receiver.getAllAnimals();
-    for (Animal animal : _animals) {
+    List<Animal> animals = _receiver.getAllAnimals();
+    for (Animal animal : animals) {
       _display.addLine(animal.toString());
     }
     _display.display();

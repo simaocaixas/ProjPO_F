@@ -2,7 +2,7 @@ package hva.core.exception;
 
 public class TreeNotKnownException extends Exception {
 
-  String _idTree;
+  private String _idTree;
 
   public TreeNotKnownException(String idTree) {
     super("Árvore não existe" + idTree);

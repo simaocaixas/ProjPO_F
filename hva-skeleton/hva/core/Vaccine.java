@@ -6,8 +6,8 @@ public class Vaccine extends Identifier  {
     private List<Specie> _species = new ArrayList<Specie>();
     private List<Register> _registers = new ArrayList<>();
 
-    public Vaccine(Hotel hotel, String idVaccine, String VaccineName, List<Specie> species) {
-        super(idVaccine, VaccineName, hotel);
+    public Vaccine(Hotel hotel, String idVaccine, String vaccineName, List<Specie> species) {
+        super(idVaccine, vaccineName, hotel);
         _species = species;
     }
 

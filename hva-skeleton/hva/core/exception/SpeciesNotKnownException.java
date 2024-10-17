@@ -2,7 +2,7 @@ package hva.core.exception;
 
 public class SpeciesNotKnownException extends Exception {
 
-  String _idSpc;
+  private String _idSpc;
 
   public SpeciesNotKnownException(String idSpc) {
     super("Espécie não registada" + idSpc);

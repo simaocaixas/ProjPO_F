@@ -7,6 +7,7 @@ import hva.core.HotelManager;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.FileAlreadyExistsException;
@@ -21,7 +22,7 @@ class DoSaveFile extends Command<HotelManager> {
   DoSaveFile(HotelManager receiver) {
     super(Label.SAVE_FILE, receiver, r -> r.getHotel() != null);
   
-    if(_receiver.getFileName().length() == 0) {
+    if(_receiver.getFileName().isEmpty()) {
       addStringField("filenameToSaveAs", Prompt.newSaveAs());
     } else {
       addStringField("filenameToSaveAs", Prompt.saveAs());
@@ -32,23 +33,20 @@ class DoSaveFile extends Command<HotelManager> {
   protected final void execute() {
 
     try {
-      _receiver.FileNameCheck();
-      _receiver.saveAs(stringField("filenameToSaveAs"));
-      
-    } catch (FileNameAlreadyExistsExceptionCore ece) {
-      try {
-        _receiver.setHotelState(false);
-        _receiver.save();
-      } catch (IOException ece2) {
-        System.err.println("Error saving file");
-      } catch (MissingFileAssociationException ece2) {
-        System.err.println("Error saving file");
+      if (_receiver.getFileName().isEmpty()) {
+        _receiver.saveAs(stringField("filenameToSaveAs"));
+      } else {
+        _receiver.save(); 
       }
-    } catch (IOException ece) {
-        System.err.println("Error saving file");
-    } catch (MissingFileAssociationException ece) {
-        System.err.println("Error saving file");
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found");
+    } catch (IOException e) {
+      System.out.println("IO exception");
+    } catch (MissingFileAssociationException e) {
+      System.out.println("Missing file association");
     }
   }
 
 }
+
+
