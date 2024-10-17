@@ -3,8 +3,6 @@ package hva.core;
 import hva.core.exception.*;
 import java.io.*;
 
-import javax.imageio.IIOException;
-
 /**
  * Class representing the manager of this application. It manages the current
  * zoo hotel.
@@ -55,9 +53,7 @@ public class HotelManager {
       ObjectInputStream objIn = new ObjectInputStream(file);
       _hotel = (Hotel) objIn.readObject();
       objIn.close();
-      _hotel.setState(false);
-    } catch (IOException e) {
-        throw new UnavailableFileException(filename);     
+      _hotel.setState(false);    
     } catch (IOException | ClassNotFoundException e) {
         throw new UnavailableFileException(filename);
   }

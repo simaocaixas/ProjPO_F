@@ -64,9 +64,7 @@ public class Parser {
             String habitatId = components[4];
 
             _hotel.registerAnimal(id, name, speciesId, habitatId);
-        } catch (SpeciesNotKnownException e) {
-            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (HabitatNotKnownException e) {
+        } catch (SpeciesNotKnownException | HabitatNotKnownException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -92,11 +90,7 @@ public class Parser {
                 for (String responsibility : components[3].split(","))
                     _hotel.newResponsability(components[1], responsibility);
             }
-        } catch (EmployeeNotKnownException e) {
-            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (EmployeeAlreadyThereException e) {
-            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (ResponsabilityNotThereException e) {
+        } catch (EmployeeNotKnownException | EmployeeAlreadyThereException | ResponsabilityNotThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }
@@ -133,12 +127,10 @@ public class Parser {
                     }
                 }
             }
-        } catch (HabitatAlreadyThereException e) {
+        } catch (HabitatAlreadyThereException | HabitatNotKnownException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
-        } catch (HabitatNotKnownException e) {
-            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        
         }
-
     }
 }
 

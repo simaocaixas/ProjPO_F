@@ -68,7 +68,7 @@ public class Hotel implements Serializable {
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
-    _animals.put(idAni,animal); 
+    _animals.put(idAni.toLowerCase(),animal); 
     this.setState(true);
 
   }
@@ -87,7 +87,7 @@ public class Hotel implements Serializable {
     }
 
     Specie specie = new Specie(this, idSpc, nameSpc);       
-    _species.put(idSpc,specie);
+    _species.put(idSpc.toLowerCase(),specie);
     this.setState(true);
 
   }
@@ -109,7 +109,7 @@ public class Hotel implements Serializable {
     }
 
     Vaccine vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
-    _vaccines.put(idVac,vaccine);
+    _vaccines.put(idVac.toLowerCase(),vaccine);
     this.setState(true);  
 
   }
@@ -136,10 +136,10 @@ public class Hotel implements Serializable {
       
     if (type.equals("PERENE")) {
       EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
-      _trees.put(idTree,tree);
+      _trees.put(idTree.toLowerCase(),tree);
     } else {
       DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, diff, season());
-      _trees.put(idTree,tree);
+      _trees.put(idTree.toLowerCase(),tree);
     }
 
     this.setState(true);  
@@ -180,7 +180,7 @@ public class Hotel implements Serializable {
     }
 
     Habitat habitat = new Habitat(this, idHabi, nameHabi, area);
-    _habitats.put(idHabi, habitat);
+    _habitats.put(idHabi.toLowerCase(), habitat);
     this.setState(true);
   }
 
@@ -200,10 +200,10 @@ public class Hotel implements Serializable {
 
     if (type.equals("VET")) {
       Veterinarian veterinarian = new Veterinarian(idEmp, nameEmp, this);
-      _employees.put(idEmp, veterinarian);
+      _employees.put(idEmp.toLowerCase(), veterinarian);
     } else {
       ZooKeeper zooKeeper = new ZooKeeper(idEmp, nameEmp,this);
-      _employees.put(idEmp,zooKeeper);
+      _employees.put(idEmp.toLowerCase(),zooKeeper);
     }
     this.setState(true);
   
@@ -265,10 +265,11 @@ public class Hotel implements Serializable {
    * @throws E the exception thrown if the entity is not found
    */
   private <T, E extends Throwable> T getById(Map<String, T> map, String id, E exception) throws E {
-    if (map.containsKey(id.equalsIgnoreCase()))
+    if (containsKeyIgnoreCase(map, id.toLowerCase())) {
+      return map.get(id.toLowerCase());
+
     }
     throw exception;
-  }
   }
 
   public Season season() {

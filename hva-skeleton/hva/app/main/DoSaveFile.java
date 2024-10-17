@@ -1,7 +1,6 @@
 package hva.app.main;
 
 import hva.app.exception.FileOpenFailedException;
-import hva.app.exception.WrongSaveFileException;
 import hva.app.main.Prompt;
 import hva.core.HotelManager;
 import pt.tecnico.uilib.forms.Form;
@@ -38,15 +37,10 @@ class DoSaveFile extends Command<HotelManager> {
       } else {
         _receiver.save(); 
       }
-    } catch (FileNotFoundException e) {
+    } catch (IOException | MissingFileAssociationException e) {
       System.out.println("File not found");
-    } catch (IOException e) {
-      System.out.println("IO exception");
-    } catch (MissingFileAssociationException e) {
-      System.out.println("Missing file association");
     }
   }
-
 }
 
 
