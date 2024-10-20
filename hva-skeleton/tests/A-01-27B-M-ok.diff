@@ -1,0 +1,32 @@
+*** tests/A-01-27B-M-ok.out	2024-10-12 19:13:01.208677000 +0100
+--- tests/A-01-27B-M-ok.outhyp	2024-10-20 17:04:18.086573313 +0100
+***************
+*** 10,16 ****
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: Ficheiro a abrir: Guardar antes de fechar? Ficheiro sem nome. Guardar ficheiro como: Menu Principal
+  1 - Criar ficheiro
+  2 - Abrir ficheiro
+  3 - Guardar ficheiro
+--- 10,17 ----
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: Guardar antes de fechar? Guardar antes de fechar? Ficheiro sem nome. Guardar ficheiro como: Ficheiro a abrir: Abrir ficheiro: Operação inválida: Problema ao abrir ficheiro: Erro a processar ficheiro 0
+! Menu Principal
+  1 - Criar ficheiro
+  2 - Abrir ficheiro
+  3 - Guardar ficheiro
+***************
+*** 22,25 ****
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: 
+\ No newline at end of file
+--- 23,26 ----
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: Fim de entrada de dados (R-EOF): pt.tecnico.uilib.text.RuntimeEOFException: Fim do fluxo de dados de entrada

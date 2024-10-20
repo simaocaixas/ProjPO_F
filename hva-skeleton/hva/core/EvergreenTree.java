@@ -20,4 +20,7 @@ public class EvergreenTree extends Tree {
         return _biologicalCycle.get(seasonName());
     }
 
+    public String treeToString() {
+        return super.treeToString() + "PERENE" + "|" + getBiologicalCycle();
+    }
 }

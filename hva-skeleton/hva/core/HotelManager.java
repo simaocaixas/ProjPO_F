@@ -103,6 +103,6 @@ public class HotelManager {
   }
 
   public double calculateSatisfaction() {
-    return _hotel.claculateSatisfaction();
+    return _hotel.calculateSatisfaction();
   }
 }

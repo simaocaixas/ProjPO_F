@@ -21,7 +21,7 @@ public class DeciduousTree extends Tree {
     }
 
     protected String treeToString() {
-        return super.treeToString() + getBiologicalCycle();
+        return super.treeToString() + "CADUCA" + "|" + getBiologicalCycle();
     }
 
 }

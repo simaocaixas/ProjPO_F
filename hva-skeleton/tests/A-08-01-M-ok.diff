@@ -1,0 +1,19 @@
+*** tests/A-08-01-M-ok.out	2024-10-18 19:27:35.658114000 +0100
+--- tests/A-08-01-M-ok.outhyp	2024-10-20 17:04:19.928573306 +0100
+***************
+*** 10,16 ****
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: 0
+  Menu Principal
+  1 - Criar ficheiro
+  2 - Abrir ficheiro
+--- 10,16 ----
+  9 - Gestão de vacinas
+  10 - Consultas
+  0 - Sair
+! Escolha uma opção: 0.0
+  Menu Principal
+  1 - Criar ficheiro
+  2 - Abrir ficheiro

@@ -1,0 +1,19 @@
+*** tests/A-17-06-M-ok.out	2024-10-18 19:27:35.638452000 +0100
+--- tests/A-17-06-M-ok.outhyp	2024-10-20 17:04:21.368573301 +0100
+***************
+*** 93,99 ****
+  0 - Sair
+  Escolha uma opção: TRT|T1|Trt one|H1,H2,H3
+  TRT|T2|Trt two|H2,H3
+! VET|V1|Vet one|C1,C3,C4
+  VET|V2|Vet two|C2
+  Gestão de Funcionários
+  1 - Visualizar todos os funcionários
+--- 93,99 ----
+  0 - Sair
+  Escolha uma opção: TRT|T1|Trt one|H1,H2,H3
+  TRT|T2|Trt two|H2,H3
+! VET|V1|Vet one|C3,C4,C1
+  VET|V2|Vet two|C2
+  Gestão de Funcionários
+  1 - Visualizar todos os funcionários

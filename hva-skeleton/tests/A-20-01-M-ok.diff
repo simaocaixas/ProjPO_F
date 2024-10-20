@@ -1,0 +1,64 @@
+*** tests/A-20-01-M-ok.out	2024-10-18 19:27:35.618927000 +0100
+--- tests/A-20-01-M-ok.outhyp	2024-10-20 17:04:22.168573298 +0100
+***************
+*** 16,43 ****
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Identificador da vacina: Nome da vacina: Identificadores das espécies que podem receber a vacina: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: VACINA|Vac1|Nome 1|0|E1
+! Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Identificador da vacina: Nome da vacina: Identificadores das espécies que podem receber a vacina: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: VACINA|Vac1|Nome 1|0|E1
+! VACINA|Vac2|Nome 2|0|E1,E3
+! Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+--- 16,46 ----
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal
+  4 - Mostrar vacinações
+  0 - Sair
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Número inválido!
+! Escolha uma opção: Gestão de Vacinas
+  1 - Visualizar todas as vacinas
+  2 - Registar vacina
+  3 - Vacinar animal

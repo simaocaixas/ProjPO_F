@@ -39,6 +39,6 @@ public class ZooKeeper extends Employee {
 
     @Override
     public String toString() {
-        return "TRT" + super.toString() + (_habitats.size() == 0 ? "" : habitatIdsToString());
+        return "TRT" + super.toString() + (_habitats.size() == 0 ? "" : "|" + habitatIdsToString());
     }
 }

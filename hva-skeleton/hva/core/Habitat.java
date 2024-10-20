@@ -63,7 +63,6 @@ public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLE
     }
 
     void changeHabitat(Habitat habitat, int area) {
-
         _area = area;
     }
 }

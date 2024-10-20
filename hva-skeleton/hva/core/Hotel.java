@@ -38,7 +38,7 @@ public class Hotel implements Serializable {
 
   }
 
-  public double claculateSatisfaction() {
+  public double calculateSatisfaction() {
 
     double total = 0;
 
@@ -246,7 +246,7 @@ public class Hotel implements Serializable {
    * @return true if the map contains the key, otherwise returns false
    */
   private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
-    if (map.containsKey(key)) {
+    if (map.containsKey(key.toLowerCase())) {
       return true;
     }
     return false;
