@@ -11,6 +11,7 @@ public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
   private String _fileName = "";
+  private int _season = 0;
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -105,4 +106,5 @@ public class HotelManager {
   public double calculateSatisfaction() {
     return _hotel.calculateSatisfaction();
   }
+
 }

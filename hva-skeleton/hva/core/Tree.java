@@ -2,9 +2,11 @@ package hva.core;
 
 public abstract class Tree extends Identifier {
 
-    private Season _season; 
+    private Season _season;
     private int _age; 
     private int _diff;
+    private int _seasonEffort;
+    private String _biologicalCycle;
     
     private Habitat _habitat;
     
@@ -35,7 +37,23 @@ public abstract class Tree extends Identifier {
         return _season.name();
     }
 
-    protected abstract String getBiologicalCycle(); 
+    public int getSeasonEffort() { 
+        return _seasonEffort;
+    }
+
+    protected String getBiologicalCycle() { 
+        return _biologicalCycle;
+    }
+
+    protected void setSeasonEffort(int seasonEffort) { 
+        _seasonEffort = seasonEffort;
+    }
+
+    protected void setBiologicalCycle(String biologicalCycle) { 
+        _biologicalCycle = biologicalCycle;
+    }
+
+    protected abstract void advanceSeason(); 
 
     protected String treeToString() {
         return "ARVORE" + "|" + super.toString() + "|" + age() + "|" + diff() + "|";
