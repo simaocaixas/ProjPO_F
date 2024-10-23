@@ -3,7 +3,6 @@ package hva.core;
 import hva.core.exception.*;
 import java.io.*;
 
-
 /**
  * Class representing the manager of this application. It manages the current
  * zoo hotel.

@@ -65,7 +65,7 @@ public class Parser {
             String habitatId = components[4];
 
             _hotel.registerAnimal(id, name, speciesId, habitatId);
-        } catch (SpeciesNotKnownException | HabitatNotKnownException e) {
+        } catch (SpeciesNotKnownException | HabitatNotKnownException | AnimalAlreadyThereException e) {
             throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
         }
     }

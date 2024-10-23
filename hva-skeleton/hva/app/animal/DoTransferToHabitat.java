@@ -25,10 +25,10 @@ class DoTransferToHabitat extends Command<Hotel> {
     try {
       _receiver.transferAnimal(stringField("idAni"), stringField("idHab"));
 
-    } catch (HabitatNotKnownException e) {
-      throw new UnknownHabitatKeyException(stringField("idHab"));
     } catch (AnimalNotKnownException e) {
       throw new UnknownAnimalKeyException(stringField("idAni"));
+    } catch (HabitatNotKnownException e) {
+      throw new UnknownHabitatKeyException(stringField("idHab"));
     }
   }
 }

@@ -11,6 +11,10 @@ public class ZooKeeper extends Employee {
         super(idEmp, nameEmp, hotel);
     }
 
+    public double calculateSatisfaction() {
+        return 0.0;
+    }
+
     public void addResponsibility(String idHabi) throws ResponsabilityNotThereException {
         try {
             Hotel hotel = hotel();

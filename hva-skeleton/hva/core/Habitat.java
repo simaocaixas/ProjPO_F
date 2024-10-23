@@ -3,7 +3,7 @@ import java.util.*;
 
 import hva.core.Specie;
 
-public class Habitat extends Identifier {              // COMPLETAMENTE INCOMPLETO
+public class Habitat extends Identifier {              
 
     private int _area;
 

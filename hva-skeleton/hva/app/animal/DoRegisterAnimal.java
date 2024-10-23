@@ -3,6 +3,7 @@ package hva.app.animal;
 import hva.core.Habitat;
 import hva.core.Hotel;
 import hva.core.Specie;
+import hva.core.exception.AnimalAlreadyThereException;
 import hva.core.exception.HabitatNotKnownException;
 import hva.core.exception.SpeciesAlreadyThereException;
 import hva.core.exception.SpeciesNotKnownException;
@@ -31,18 +32,21 @@ class DoRegisterAnimal extends Command<Hotel> {
   @Override
   protected final void execute() throws CommandException { 
     try {
-      Specie specie = _receiver.getSpecieById(stringField("idSpc"));
-      _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
-    } catch (SpeciesNotKnownException ece) {
-      String nomeSpc = Form.requestString(Prompt.speciesName());
-      try { 
+        Specie specie = _receiver.getSpecieById(stringField("idSpc"));
+        _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
+      } catch (SpeciesNotKnownException ece) {
+        String nomeSpc = Form.requestString(Prompt.speciesName()); 
+        try { 
           _receiver.registerSpecie(stringField("idSpc"), nomeSpc);
           execute();
-      } catch (SpeciesAlreadyThereException e) {
-        throw new UnknownSpeciesKeyException(e.idSpc());
-      }
-    } catch (HabitatNotKnownException ece) {
+        } catch (SpeciesAlreadyThereException e) {
+          throw new UnknownSpeciesKeyException(e.idSpc());
+        }  
+      } catch (AnimalAlreadyThereException e) {
+          throw new DuplicateAnimalKeyException(stringField("idAni")); 
+      } catch (HabitatNotKnownException ece) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
     }
   }
 }
+

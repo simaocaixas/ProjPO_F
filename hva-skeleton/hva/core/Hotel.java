@@ -64,13 +64,16 @@ public class Hotel implements Serializable {
    * @throws SpeciesNotKnownException if the species is not found
    * @throws HabitatNotKnownException if the habitat is not found
    */
-  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnownException, HabitatNotKnownException {
+  public void registerAnimal(String idAni, String nameAni, String idSpc, String idHabi) throws SpeciesNotKnownException, HabitatNotKnownException, AnimalAlreadyThereException {
 
+    if (containsKeyIgnoreCase(_animals,idAni)) {
+      throw new AnimalAlreadyThereException(idAni);
+    }
+    
     Specie specie = getSpecieById(idSpc); 
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
     _animals.put(idAni.toLowerCase(),animal); 
-    habitat.addAnimal(animal);
     habitat.addSpecie(specie);
     this.setState(true);
 

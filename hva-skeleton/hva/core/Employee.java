@@ -7,6 +7,8 @@ public abstract class Employee extends Identifier {
         super(idEmp, nameEmp, hotel);
     }
 
+    public abstract double calculateSatisfaction();
+
     public abstract void addResponsibility(String id) throws ResponsabilityNotThereException;
 
     public abstract void removeResponsibility(String id) throws ResponsabilityNotThereException;

@@ -57,12 +57,8 @@ Escolha uma opção: Identificador único do habitat: Consultas
 4 - Vacinações com problemas
 0 - Sair
 Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
-ANIMAL|A1|Pinguim 1|C1|VOID|AR2
-ANIMAL|A2|Pinguim 2|C1|VOID|AR2
 ANIMAL|A2|Pinguim 2|C1|VOID|AR2
 ANIMAL|A3|Macaco 1|C2|VOID|AR2
-ANIMAL|A3|Macaco 1|C2|VOID|AR2
-ANIMAL|A4|Macaco 2|C2|VOID|AR2
 ANIMAL|A4|Macaco 2|C2|VOID|AR2
 Consultas
 1 - Animais de um habitat
