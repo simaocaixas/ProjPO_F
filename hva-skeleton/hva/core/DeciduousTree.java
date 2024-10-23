@@ -1,26 +1,22 @@
 package hva.core;
-import java.util.*;
 
 public class DeciduousTree extends Tree {
     
-    private SeasonState _state;
-
-    private List<SeasonState> _seasonStates = new ArrayList<>(Arrays.asList(
-        new SpringSeasonDeciduousState(), new SummerSeasonDeciduousState(),
-        new FallSeasonDeciduousState(), new WinterSeasonDeciduousState()));
-
-    protected DeciduousTree(Habitat habitat, String idTree, String treeName, int diff, Season season) {
-        super(habitat, idTree, treeName, diff, season);
-        _state = _seasonStates.get(season.getSeasonNumber());   
+    protected DeciduousTree(Habitat habitat, String idTree, String treeName, int age, int diff, Season season) {
+        super(habitat, idTree, treeName, age, diff, season);
+        setState(new SpringSeasonDeciduousState());
+        updateTreeState();
         habitat.addTree(this);         
     }
 
-    public void advanceSeason(){
-        _state = _state.next();
-    }    
+    protected DeciduousTree(String idTree, String treeName, int age, int diff, Season season) {
+        super(idTree, treeName, age, diff, season);
+        setState(new SpringSeasonDeciduousState());
+        updateTreeState();         
+    }
 
-    protected String treeToString() {
-        return super.treeToString() + "CADUCA" + "|" + getBiologicalCycle();
+    public String toString() {
+        return super.toString() + "CADUCA" + "|" + getState().biologicalState();
     }
 
 }

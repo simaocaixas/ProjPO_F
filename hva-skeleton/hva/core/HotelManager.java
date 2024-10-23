@@ -3,6 +3,7 @@ package hva.core;
 import hva.core.exception.*;
 import java.io.*;
 
+
 /**
  * Class representing the manager of this application. It manages the current
  * zoo hotel.
@@ -11,7 +12,6 @@ public class HotelManager {
   /** The current zoo hotel */ // Should we initialize this field?
   private Hotel _hotel = new Hotel();
   private String _fileName = "";
-  private int _season = 0;
   
   /**
    * Saves the serialized application's state into the file associated to the current network.
@@ -39,7 +39,7 @@ public class HotelManager {
     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(_fileName));
     oos.writeObject(_hotel);
     oos.close(); 
-  
+    _hotel.setState(false);
   }
 
   /**
@@ -54,6 +54,7 @@ public class HotelManager {
       ObjectInputStream objIn = new ObjectInputStream(file);
       _hotel = (Hotel) objIn.readObject();
       objIn.close();
+      setFileName(filename);
       _hotel.setState(false);    
     } catch (IOException | ClassNotFoundException e) {
         throw new UnavailableFileException(filename);
@@ -103,8 +104,20 @@ public class HotelManager {
     return _fileName;
   }
 
+  protected void setFileName(String filename) {
+    _fileName = filename;
+  } 
+
   public double calculateSatisfaction() {
     return _hotel.calculateSatisfaction();
   }
 
+  public Season season() {
+    return _hotel.season();
+  }
+
+  public void nextSeason() {
+    _hotel.nextSeason();
+  }
+  
 }

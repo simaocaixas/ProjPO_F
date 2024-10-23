@@ -1,5 +1,5 @@
-*** tests/A-10-03-M-ok.out	2024-10-18 19:27:35.653007000 +0100
---- tests/A-10-03-M-ok.outhyp	2024-10-22 17:39:19.799240022 +0100
+*** tests/A-10-03-M-ok.out	2024-10-23 11:20:49.111157000 +0100
+--- tests/A-10-03-M-ok.outhyp	2024-10-23 21:34:36.694509460 +0100
 ***************
 *** 16,28 ****
   3 - Transferir para habitat
@@ -15,42 +15,31 @@
   ANIMAL|A2|Pinguim 2|C1|VOID|AR2
   ANIMAL|A3|Macaco 1|C2|VOID|AR1
   ANIMAL|A4|Macaco 2|C2|VOID|AR1
---- 16,30 ----
+--- 16,28 ----
   3 - Transferir para habitat
   4 - Calcular satisfação de animal
   0 - Sair
-! Escolha uma opção: Gestão de Animais
+! Escolha uma opção: Identificador único do habitat: Identificador único do animal: Gestão de Animais
   1 - Visualizar todos os animais
   2 - Registar animal
   3 - Transferir para habitat
   4 - Calcular satisfação de animal
   0 - Sair
-! Escolha uma opção: Número inválido!
-! Escolha uma opção: Número inválido!
 ! Escolha uma opção: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
   ANIMAL|A2|Pinguim 2|C1|VOID|AR2
   ANIMAL|A3|Macaco 1|C2|VOID|AR1
   ANIMAL|A4|Macaco 2|C2|VOID|AR1
 ***************
-*** 50,57 ****
+*** 50,65 ****
   3 - Actos médicos de um veterinário
   4 - Vacinações com problemas
   0 - Sair
 ! Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Pinguim 1|C1|VOID|AR1
-! ANIMAL|A3|Macaco 1|C2|VOID|AR1
+  ANIMAL|A3|Macaco 1|C2|VOID|AR1
   ANIMAL|A4|Macaco 2|C2|VOID|AR1
   Consultas
   1 - Animais de um habitat
---- 52,58 ----
-  3 - Actos médicos de um veterinário
-  4 - Vacinações com problemas
-  0 - Sair
-! Escolha uma opção: Identificador único do habitat: ANIMAL|A3|Macaco 1|C2|VOID|AR1
-  ANIMAL|A4|Macaco 2|C2|VOID|AR1
-  Consultas
-  1 - Animais de um habitat
-***************
-*** 59,65 ****
+  2 - Actos médicos num animal
   3 - Actos médicos de um veterinário
   4 - Vacinações com problemas
   0 - Sair
@@ -58,11 +47,23 @@
   Consultas
   1 - Animais de um habitat
   2 - Actos médicos num animal
---- 60,67 ----
+--- 50,69 ----
+  3 - Actos médicos de um veterinário
+  4 - Vacinações com problemas
+  0 - Sair
+! Escolha uma opção: Identificador único do habitat: ANIMAL|A3|Macaco 1|C2|VOID|AR1
+  ANIMAL|A3|Macaco 1|C2|VOID|AR1
+  ANIMAL|A4|Macaco 2|C2|VOID|AR1
++ ANIMAL|A4|Macaco 2|C2|VOID|AR1
+  Consultas
+  1 - Animais de um habitat
+  2 - Actos médicos num animal
   3 - Actos médicos de um veterinário
   4 - Vacinações com problemas
   0 - Sair
 ! Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
+! ANIMAL|A1|Pinguim 1|C1|VOID|AR2
+! ANIMAL|A2|Pinguim 2|C1|VOID|AR2
 ! ANIMAL|A2|Pinguim 2|C1|VOID|AR2
   Consultas
   1 - Animais de um habitat

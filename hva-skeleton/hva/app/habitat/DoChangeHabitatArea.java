@@ -18,17 +18,14 @@ class DoChangeHabitatArea extends Command<Hotel> {
 
   DoChangeHabitatArea(Hotel receiver) {
     super(Label.CHANGE_HABITAT_AREA, receiver);
-    // AQUI
     addStringField("idHabi", Prompt.habitatKey());
     addIntegerField("area", Prompt.habitatArea());
-
   }
   
   @Override
   protected void execute() throws CommandException {
-    
     try {
-    _receiver.changeHabitat(stringField("idHabi"), integerField("area"));
+      _receiver.changeHabitat(stringField("idHabi"), integerField("area"));
     } catch (HabitatNotKnownException ece) {
       throw new UnknownHabitatKeyException(stringField("idHabi"));
     }

@@ -1,5 +1,5 @@
-*** tests/A-01-28-M-ok.out	2024-10-02 10:59:21.736604000 +0100
---- tests/A-01-28-M-ok.outhyp	2024-10-22 17:39:17.554224376 +0100
+*** tests/A-01-28-M-ok.out	2024-10-23 11:20:49.111157000 +0100
+--- tests/A-01-28-M-ok.outhyp	2024-10-23 21:34:34.410426510 +0100
 ***************
 *** 22,67 ****
   9 - Gestão de vacinas
@@ -48,7 +48,7 @@
 ! 10 - Consultas
 ! 0 - Sair
 ! Escolha uma opção: 
-\ No newline at end of file
+\ Sem newline no fim do ficheiro
 --- 22,25 ----
   9 - Gestão de vacinas
   10 - Consultas

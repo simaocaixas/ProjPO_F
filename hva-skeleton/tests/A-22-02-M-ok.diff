@@ -1,0 +1,12 @@
+*** tests/A-22-02-M-ok.out	2024-10-23 11:20:49.115157000 +0100
+--- tests/A-22-02-M-ok.outhyp	2024-10-23 21:34:39.242602485 +0100
+***************
+*** 23,28 ****
+--- 23,29 ----
+  4 - Vacinações com problemas
+  0 - Sair
+  Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Nome 1|E1|VOID|H1
++ ANIMAL|A1|Nome 1|E1|VOID|H1
+  Consultas
+  1 - Animais de um habitat
+  2 - Actos médicos num animal

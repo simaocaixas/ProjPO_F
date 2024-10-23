@@ -51,6 +51,7 @@ public class Parser {
             case "VETERINÁRIO" -> parseEmployee(components, "VET");
             case "TRATADOR" -> parseEmployee(components, "TRT");
             case "VACINA" -> parseVaccine(components);
+            case "ÁRVORE" -> parseTree(components);
             default -> throw new UnrecognizedEntryException("tipo de entrada inválido: " + components[0]);
         }
     }
@@ -132,6 +133,21 @@ public class Parser {
         
         }
     }
+
+    private void parseTree(String[] components) throws UnrecognizedEntryException {
+        try {
+            String id = components[1];
+            String name = components[2];
+            int age = Integer.parseInt(components[3]);
+            int diff = Integer.parseInt(components[4]);
+            String type = components[5];
+
+            _hotel.createTree(id, name, age, diff, type);
+        } catch (TreeAlreadyThereException e) {
+            throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());
+        }
+    }
+
 }
 
 /**

@@ -16,6 +16,9 @@ class DoAdvanceSeason extends Command<HotelManager> {
 
   @Override
   protected final void execute() {
-    //FIXME implement command
+    
+    _receiver.nextSeason();
+    _display.addLine(_receiver.season().getSeasonNumber());
+    _display.display();
   }
 }

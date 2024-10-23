@@ -1,12 +1,16 @@
 package hva.core;
 
-public class WinterSeasonDeciduousState implements SeasonState{
-    public void changeSeasonInfo(Tree tree) {    
-        tree.setSeasonEffort(0);
-        tree.setBiologicalCycle("SEMFOLHAS");
+public class WinterSeasonDeciduousState implements TreeState {
+
+    public String biologicalState() {
+        return "SEMFOLHAS";
     }
 
-    public SeasonState next() {
+    public int seasonalEffort() {
+        return 0;
+    }
+
+    public TreeState nextSeason() {
         return new SpringSeasonDeciduousState();
     }
 }

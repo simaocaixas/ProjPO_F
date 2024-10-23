@@ -3,6 +3,7 @@ package hva.core;
 import hva.core.Employee;
 import hva.core.exception.*;
 import java.util.*;
+
 import java.io.*;
 
 /**
@@ -22,7 +23,7 @@ public class Hotel implements Serializable {
   private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>(); 
   private HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
   private HashMap<String,Vaccine> _vaccines = new HashMap<String,Vaccine>(); 
-  private HashMap<String,Tree> _trees = new HashMap<String,Tree>();
+  private ArrayList<Tree> _trees = new ArrayList<>();
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -43,7 +44,7 @@ public class Hotel implements Serializable {
     double total = 0;
 
     for (Animal animal : _animals.values()) {
-    ///   total += animal.calculateSatisfaction();      <--- TO DO! 
+      total += animal.calculateSatisfaction();      
     }
 
     for (Employee employee : _employees.values()) {
@@ -69,6 +70,8 @@ public class Hotel implements Serializable {
     Habitat habitat = getHabitatById(idHabi); 
     Animal animal = new Animal(this, idAni, nameAni, specie, habitat);    
     _animals.put(idAni.toLowerCase(),animal); 
+    habitat.addAnimal(animal);
+    habitat.addSpecie(specie);
     this.setState(true);
 
   }
@@ -92,6 +95,23 @@ public class Hotel implements Serializable {
 
   }
 
+  public void changeHabitatInfluence(String idHabi, String idSpc, String influence) throws HabitatNotKnownException, SpeciesNotKnownException {
+    
+    Habitat habitat = getHabitatById(idHabi);
+    Specie specie = getSpecieById(idSpc);
+
+    switch (influence) {
+      case "POS":
+        habitat.changeAdequacy(specie,20);
+        break;
+      case "NEG":
+        habitat.changeAdequacy(specie,-20);
+        break;
+      default:
+        habitat.changeAdequacy(specie,0);
+        break;
+    }
+  }
   /**
    * Registers a new vaccine and associates it with the species it can vaccinate.
    * 
@@ -103,6 +123,7 @@ public class Hotel implements Serializable {
   public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnownException {
 
     List<Specie> speciesSet = new ArrayList<Specie>();
+    
     for (String idSpc : species) {
       Specie specie = getSpecieById(idSpc);
       speciesSet.add(specie);
@@ -130,18 +151,41 @@ public class Hotel implements Serializable {
 
     Habitat habitat = getHabitatById(idHabi);
       
-    if (containsKeyIgnoreCase(_trees,idTree)) {
+    if (containsKeyIgnoreCase(_trees, idTree)) {
       throw new TreeAlreadyThereException(idTree);
     }
       
     if (type.equals("PERENE")) {
-      EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, diff, season());
-      _trees.put(idTree.toLowerCase(),tree);
+      EvergreenTree tree = new EvergreenTree(habitat, idTree, nameTree, age, diff, season());
+      _trees.add(tree);
     } else {
-      DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, diff, season());
-      _trees.put(idTree.toLowerCase(),tree);
+      DeciduousTree tree = new DeciduousTree(habitat, idTree, nameTree, age, diff, season());
+      _trees.add(tree);
+    }
+    this.setState(true);  
+  }
+
+  /*
+    CREATE TREE JAVADOCS
+    CREATE TREE JAVADOCS
+    CREATE TREE JAVADOCS
+    CREATE TREE JAVADOCS
+    CREATE TREE JAVADOCS
+  */
+
+  public void createTree(String idTree, String nameTree, int age, int diff, String type) throws TreeAlreadyThereException{
+
+    if (containsKeyIgnoreCase(_trees, idTree)) {
+      throw new TreeAlreadyThereException(idTree);
     }
 
+    if (type.equals("PERENE")) {
+      EvergreenTree tree = new EvergreenTree(idTree, nameTree, age, diff, season());
+      _trees.add(tree);
+    } else {
+      DeciduousTree tree = new DeciduousTree(idTree, nameTree, age, diff, season());
+      _trees.add(tree);
+    }
     this.setState(true);  
   }
 
@@ -209,6 +253,23 @@ public class Hotel implements Serializable {
   
   }
 
+  public void transferAnimal(String idAni, String idHabi) throws AnimalNotKnownException, HabitatNotKnownException{
+    /*
+    Habitat habitat = getHabitatById(idHabi);
+    Animal animal = 
+    */
+  }
+
+  public void nextSeason() {
+    _season = _season.nextSeason();
+  
+    for (Tree tree: _trees) {
+      tree.advanceSeason();
+    }
+
+    this.setState(true);
+  }
+
   /**
    * Modifies the area of an existing habitat.
    * 
@@ -220,6 +281,12 @@ public class Hotel implements Serializable {
     Habitat habitat = getHabitatById(idHabi);
     habitat.changeHabitat(habitat, area);
     this.setState(true);
+  }
+
+
+
+  public Animal getAnimalById(String idAni) throws AnimalNotKnownException {
+    return getById(_animals, idAni, new AnimalNotKnownException(idAni));
   }
 
   public Specie getSpecieById(String idSpc) throws SpeciesNotKnownException {
@@ -253,6 +320,22 @@ public class Hotel implements Serializable {
   }
 
   /**
+   * Checks if a given key exists in the map, ignoring case sensitivity.
+   * 
+   * @param map the map to check
+   * @param key the key to search for (case-insensitive)
+   * @return true if the map contains the key, otherwise returns false
+   */
+  private <T extends Identifier> boolean containsKeyIgnoreCase(List<T> list, String key) {
+    for (T item : list) {
+        if (item.id().equalsIgnoreCase(key)) {  
+            return true;
+        }
+    }
+    return false;
+  }
+
+  /**
    * Retrieves an entity from a map by its ID, ignoring case sensitivity.
    * If the entity is not found, it throws a custom exception.
    * 
@@ -270,6 +353,15 @@ public class Hotel implements Serializable {
 
     }
     throw exception;
+  }
+
+  private <T extends Identifier, E extends Throwable> T getById(List<T> list, String id, E exception) throws E {
+    for (T item : list) {
+        if (item.id().equalsIgnoreCase(id)) {  
+            return item;
+        }
+    }
+    throw exception;  
   }
 
   public Season season() {
@@ -314,6 +406,11 @@ public class Hotel implements Serializable {
    */
   public <T extends Identifier> List<T> getAllEntities(Map<String, T> entityMap) {
     List<T> entityList = new ArrayList<>(entityMap.values());
+    entityList.sort(Comparator.comparing(T::id, String.CASE_INSENSITIVE_ORDER));
+    return Collections.unmodifiableList(entityList);
+  }
+
+  public <T extends Identifier> List<T> getAllEntities(List <T> entityList) {
     entityList.sort(Comparator.comparing(T::id, String.CASE_INSENSITIVE_ORDER));
     return Collections.unmodifiableList(entityList);
   }

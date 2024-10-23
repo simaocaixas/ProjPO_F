@@ -1,7 +1,7 @@
-*** tests/A-10-04-M-ok.out	2024-10-18 19:27:35.654599000 +0100
---- tests/A-10-04-M-ok.outhyp	2024-10-22 17:39:19.855240413 +0100
+*** tests/A-10-04-M-ok.out	2024-10-23 11:20:49.111157000 +0100
+--- tests/A-10-04-M-ok.outhyp	2024-10-23 21:34:36.762511935 +0100
 ***************
-*** 16,30 ****
+*** 16,22 ****
   3 - Transferir para habitat
   4 - Calcular satisfação de animal
   0 - Sair
@@ -9,7 +9,16 @@
   1 - Visualizar todos os animais
   2 - Registar animal
   3 - Transferir para habitat
+--- 16,22 ----
+  3 - Transferir para habitat
   4 - Calcular satisfação de animal
+  0 - Sair
+! Escolha uma opção: Identificador único do habitat: Identificador único do animal: Gestão de Animais
+  1 - Visualizar todos os animais
+  2 - Registar animal
+  3 - Transferir para habitat
+***************
+*** 24,30 ****
   0 - Sair
   Escolha uma opção: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
   ANIMAL|A2|Pinguim 2|C1|VOID|AR2
@@ -17,18 +26,8 @@
   ANIMAL|A4|Macaco 2|C2|VOID|AR2
   Gestão de Animais
   1 - Visualizar todos os animais
---- 16,32 ----
-  3 - Transferir para habitat
-  4 - Calcular satisfação de animal
+--- 24,30 ----
   0 - Sair
-! Escolha uma opção: Gestão de Animais
-  1 - Visualizar todos os animais
-  2 - Registar animal
-  3 - Transferir para habitat
-  4 - Calcular satisfação de animal
-  0 - Sair
-+ Escolha uma opção: Número inválido!
-+ Escolha uma opção: Número inválido!
   Escolha uma opção: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
   ANIMAL|A2|Pinguim 2|C1|VOID|AR2
 ! ANIMAL|A3|Macaco 1|C2|VOID|AR2
@@ -36,7 +35,7 @@
   Gestão de Animais
   1 - Visualizar todos os animais
 ***************
-*** 50,57 ****
+*** 50,64 ****
   3 - Actos médicos de um veterinário
   4 - Vacinações com problemas
   0 - Sair
@@ -45,7 +44,14 @@
   1 - Animais de um habitat
   2 - Actos médicos num animal
   3 - Actos médicos de um veterinário
---- 52,58 ----
+  4 - Vacinações com problemas
+  0 - Sair
+  Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
+  ANIMAL|A2|Pinguim 2|C1|VOID|AR2
+  ANIMAL|A4|Macaco 2|C2|VOID|AR2
+  Consultas
+  1 - Animais de um habitat
+--- 50,68 ----
   3 - Actos médicos de um veterinário
   4 - Vacinações com problemas
   0 - Sair
@@ -53,18 +59,20 @@
   1 - Animais de um habitat
   2 - Actos médicos num animal
   3 - Actos médicos de um veterinário
-***************
-*** 59,64 ****
---- 60,66 ----
+  4 - Vacinações com problemas
   0 - Sair
   Escolha uma opção: Identificador único do habitat: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
++ ANIMAL|A1|Pinguim 1|C1|VOID|AR2
++ ANIMAL|A2|Pinguim 2|C1|VOID|AR2
   ANIMAL|A2|Pinguim 2|C1|VOID|AR2
 + ANIMAL|A3|Macaco 1|C2|VOID|AR2
++ ANIMAL|A3|Macaco 1|C2|VOID|AR2
++ ANIMAL|A4|Macaco 2|C2|VOID|AR2
   ANIMAL|A4|Macaco 2|C2|VOID|AR2
   Consultas
   1 - Animais de um habitat
 ***************
-*** 84,95 ****
+*** 84,90 ****
   3 - Transferir para habitat
   4 - Calcular satisfação de animal
   0 - Sair
@@ -72,23 +80,11 @@
   1 - Visualizar todos os animais
   2 - Registar animal
   3 - Transferir para habitat
-  4 - Calcular satisfação de animal
-  0 - Sair
-  Escolha uma opção: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
-  ANIMAL|A2|Pinguim 2|C1|VOID|AR2
-  ANIMAL|A3|Macaco 1|C2|VOID|AR2
---- 86,99 ----
+--- 88,94 ----
   3 - Transferir para habitat
   4 - Calcular satisfação de animal
   0 - Sair
-! Escolha uma opção: Gestão de Animais
+! Escolha uma opção: Identificador único do habitat: Identificador único do animal: Gestão de Animais
   1 - Visualizar todos os animais
   2 - Registar animal
   3 - Transferir para habitat
-  4 - Calcular satisfação de animal
-  0 - Sair
-+ Escolha uma opção: Número inválido!
-+ Escolha uma opção: Número inválido!
-  Escolha uma opção: ANIMAL|A1|Pinguim 1|C1|VOID|AR2
-  ANIMAL|A2|Pinguim 2|C1|VOID|AR2
-  ANIMAL|A3|Macaco 1|C2|VOID|AR2

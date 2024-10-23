@@ -1,14 +1,18 @@
 package hva.core;
 
-public class FallSeasonEvergreenState implements SeasonState{
+import hva.core.Season;
+
+public class FallSeasonEvergreenState implements TreeState {
     
-    public void changeSeasonInfo(Tree tree) {    
-        tree.setSeasonEffort(1);
-        tree.setBiologicalCycle("COMFOLHAS");
+    public String biologicalState() {
+        return "COMFOLHAS";
     }
 
-    public SeasonState next() {
+    public int seasonalEffort() {
+        return 1;
+    }
+
+    public TreeState nextSeason() {
         return new WinterSeasonEvergreenState();
     }
-
 }

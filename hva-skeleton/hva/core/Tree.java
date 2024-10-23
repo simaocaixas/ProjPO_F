@@ -3,18 +3,33 @@ package hva.core;
 public abstract class Tree extends Identifier {
 
     private Season _season;
+    private final Season _birthSeason; 
     private int _age; 
     private int _diff;
-    private int _seasonEffort;
-    private String _biologicalCycle;
-    
+    private TreeState _state;
     private Habitat _habitat;
     
-    protected Tree(Habitat habitat, String idTree, String treeName, int diff, Season season) {
+    protected Tree(Habitat habitat, String idTree, String treeName, int age, int diff, Season season) {
         super(idTree, treeName);
+        _age = age;
         _habitat = habitat;
         _diff = diff;
         _season = season;
+        _birthSeason = season;
+    }
+
+    protected Tree(String idTree, String treeName, int age, int diff, Season season) {
+        super(idTree, treeName);
+        _age = age;
+        _diff = diff;
+        _season = season;
+        _birthSeason = season;
+    }
+
+    protected void updateTreeAge() {
+        if(_birthSeason.equals(_season)) {
+            _age++;
+        }
     }
 
     protected int age() {
@@ -37,26 +52,31 @@ public abstract class Tree extends Identifier {
         return _season.name();
     }
 
-    public int getSeasonEffort() { 
-        return _seasonEffort;
+    protected TreeState getState() {
+        return _state;
+    }
+    
+    protected void setState(TreeState state) {
+        _state = state;
     }
 
-    protected String getBiologicalCycle() { 
-        return _biologicalCycle;
+    protected void advanceSeason(){
+        _season = _season.nextSeason();
+        _state = _state.nextSeason();
+        updateTreeAge();
     }
 
-    protected void setSeasonEffort(int seasonEffort) { 
-        _seasonEffort = seasonEffort;
+    protected void updateTreeState() {
+        int i = 0;
+        int seasonInteger = season().getSeasonNumber();
+
+        while (i++ < seasonInteger) {
+            _state.nextSeason();
+        }
     }
 
-    protected void setBiologicalCycle(String biologicalCycle) { 
-        _biologicalCycle = biologicalCycle;
-    }
-
-    protected abstract void advanceSeason(); 
-
-    protected String treeToString() {
-        return "ARVORE" + "|" + super.toString() + "|" + age() + "|" + diff() + "|";
+    public String toString() {
+        return "ÁRVORE" + "|" + super.toString() + "|" + age() + "|" + diff() + "|";
     }
 
 }
