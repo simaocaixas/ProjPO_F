@@ -29,20 +29,37 @@ public class Animal extends Identifier{
     }
 
     public String healthState() {
+        StringBuilder sb = new StringBuilder();
+
         for (Register register : _registers) {
-                return register.toString();
-        }  return "";
+            sb.append(register.damage());
+            sb.append(",");
+        }
+
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+
+        return sb.toString();
     }
     
     public String toString() {
         return "ANIMAL"+ "|" + super.toString() + "|" + _specie.id() + "|" + (healthState().length() == 0 ? "VOID" : healthState()) + "|" + _habitat.id();
     }
 
-    protected Specie specie() {
+    public Specie specie() {
         return _specie;
     }
 
-    protected Habitat habitat() {
+    public Habitat habitat() {
         return _habitat;
+    }
+
+    public void addRegister(Register register) {
+        _registers.add(register);
+    }
+
+    public List<Register> getAllRegisters() {
+        return Collections.unmodifiableList(_registers);
     }
 }

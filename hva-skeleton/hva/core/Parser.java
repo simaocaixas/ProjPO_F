@@ -98,10 +98,12 @@ public class Parser {
 
     // Parse a line with format VACINA|id|nome|idEspécie1,...,idEspécieN
     private void parseVaccine(String[] components) throws UnrecognizedEntryException{
+        
         try {
         String id = components[1];
         String name = components[2];
-        String[] speciesIds = components.length == 4 ? components[3].split(",") : new String[0];
+        String speciesIds = components.length == 4 ? components[3] : "";
+
         _hotel.registerVaccine(id, name, speciesIds);
         } catch (SpeciesNotKnownException e) {
         throw new UnrecognizedEntryException("Invalid entry: " + e.getMessage());

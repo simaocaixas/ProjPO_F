@@ -1,6 +1,7 @@
 package hva.core;
 
 import hva.core.Employee;
+import hva.core.Specie;
 import hva.core.exception.*;
 import java.util.*;
 
@@ -24,6 +25,7 @@ public class Hotel implements Serializable {
   private HashMap<String,Employee> _employees = new HashMap<String,Employee>(); 
   private HashMap<String,Vaccine> _vaccines = new HashMap<String,Vaccine>(); 
   private ArrayList<Tree> _trees = new ArrayList<>();
+  private ArrayList<Register> _registers = new ArrayList<>();
 
   @Serial
   private static final long serialVersionUID = 1L;
@@ -48,7 +50,7 @@ public class Hotel implements Serializable {
     }
 
     for (Employee employee : _employees.values()) {
-    ///   total += employee.calculateSatisfaction();    <--- TO DO!
+      total += employee.calculateSatisfaction();    
     }
 
     return total;
@@ -123,20 +125,22 @@ public class Hotel implements Serializable {
    * @param species an array of species IDs that be vaccinated by this vaccine
    * @throws SpeciesNotKnownException if any species is not found
    */
-  public void registerVaccine(String idVac, String nameVac, String[] species) throws SpeciesNotKnownException {
+  public void registerVaccine(String idVac, String nameVac, String species) throws SpeciesNotKnownException {
 
-    List<Specie> speciesSet = new ArrayList<Specie>();
-    
-    for (String idSpc : species) {
-      Specie specie = getSpecieById(idSpc);
-      speciesSet.add(specie);
+    List<Specie> speciesSet = new ArrayList<>();
+
+    if (!species.isEmpty()) {
+        List<String> speciesIdSet = stringToList(species);
+        for (String idSpc : speciesIdSet) {
+            Specie specie = getSpecieById(idSpc);
+            speciesSet.add(specie);
+        }
     }
 
     Vaccine vaccine = new Vaccine(this, idVac, nameVac, speciesSet);
-    _vaccines.put(idVac.toLowerCase(),vaccine);
+    _vaccines.put(idVac.toLowerCase(), vaccine);
     this.setState(true);  
-
-  }
+}
 
   /**
    * Registers a new tree and adds it to the hotel's tree hashtable.
@@ -267,6 +271,22 @@ public class Hotel implements Serializable {
   
   }
 
+  public void vaccineAnimal(String idVac, String idAni, String idVet) throws AnimalNotKnownException, VaccineNotKnownException, EmployeeNotKnownException, VetNotAuthorizedException {
+    
+    Animal animal = getAnimalById(idAni);
+    Vaccine vaccine = getVaccineById(idVac);
+    Employee employee = getEmployeeById(idVet);
+
+    if (employee instanceof Veterinarian ) {
+      Veterinarian veterinarian = (Veterinarian) employee;
+      veterinarian.vaccinateAnimal(animal, vaccine);
+    } else {
+      throw new EmployeeNotKnownException(idVet);
+    } 
+
+    this.setState(true);
+  }
+
   public void transferAnimal(String idAni, String idHabi) throws AnimalNotKnownException, HabitatNotKnownException{
       
       Animal animal = getAnimalById(idAni);
@@ -285,6 +305,21 @@ public class Hotel implements Serializable {
 
     this.setState(true);
   }
+
+  public List<String> stringToList(String items) {
+
+    List<String> list = new ArrayList<>();
+    String[] itemsArray = items.split(",");
+    for (String item : itemsArray) {
+      list.add(item);
+    }
+    return list;
+  } 
+
+  public void addRegister(Register register) {
+    _registers.add(register);
+  }
+
 
   /**
    * Modifies the area of an existing habitat.
@@ -319,6 +354,10 @@ public class Hotel implements Serializable {
     return getById(_employees, idEmp, new EmployeeNotKnownException(idEmp));
   }
 
+  public Vaccine getVaccineById(String idVac) throws VaccineNotKnownException {
+    return getById(_vaccines, idVac, new VaccineNotKnownException(idVac));
+  }
+
   /**
    * Checks if a given key exists in the map, ignoring case sensitivity.
    * 
@@ -326,7 +365,7 @@ public class Hotel implements Serializable {
    * @param key the key to search for (case-insensitive)
    * @return true if the map contains the key, otherwise returns false
    */
-  private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
+  public boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {
     if (map.containsKey(key.toLowerCase())) {
       return true;
     }
@@ -340,7 +379,7 @@ public class Hotel implements Serializable {
    * @param key the key to search for (case-insensitive)
    * @return true if the map contains the key, otherwise returns false
    */
-  private <T extends Identifier> boolean containsKeyIgnoreCase(List<T> list, String key) {
+  public <T extends Identifier> boolean containsKeyIgnoreCase(List<T> list, String key) {
     for (T item : list) {
         if (item.id().equalsIgnoreCase(key)) {  
             return true;
@@ -408,6 +447,10 @@ public class Hotel implements Serializable {
 
   public List<Vaccine> getAllVaccines() {
     return getAllEntities(_vaccines);
+  }
+
+  public List<Register> getAllRegisters() {
+    return Collections.unmodifiableList(_registers);
   }
 
   /**
