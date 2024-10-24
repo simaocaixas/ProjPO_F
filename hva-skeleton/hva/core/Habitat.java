@@ -2,6 +2,7 @@ package hva.core;
 import java.util.*;
 
 import hva.core.Specie;
+import hva.core.ZooKeeper;
 
 public class Habitat extends Identifier {              
 
@@ -9,6 +10,7 @@ public class Habitat extends Identifier {
 
     private HashMap<String, Integer> _adequacy = new HashMap<>();
 
+    private List<ZooKeeper> _zookeepers = new ArrayList<>();
     private List<Animal> _animals = new ArrayList<>();
 
     private List<Tree> _trees = new ArrayList<>();
@@ -17,6 +19,18 @@ public class Habitat extends Identifier {
     public Habitat(Hotel hotel, String idHabi, String nome, int area) {
         super(idHabi, nome, hotel);
         _area = area;
+    }
+
+    public int getNumberOfZookeepers() {
+        return _zookeepers.size();
+    }
+
+    public void removeAnimal(Animal animal) {
+        _animals.remove(animal);
+    }
+
+    public void addZooKeeper(ZooKeeper zookeeper) {
+        _zookeepers.add(zookeeper);
     }
 
     public String habitatToString() {
@@ -36,6 +50,10 @@ public class Habitat extends Identifier {
         } 
 
         return sb.toString();
+    }
+
+    public int population() {
+        return _animals.size();
     }
 
     public List<Animal> getAllAnimals() {

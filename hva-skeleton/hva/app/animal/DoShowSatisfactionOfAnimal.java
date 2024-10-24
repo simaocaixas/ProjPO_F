@@ -12,7 +12,7 @@ import pt.tecnico.uilib.menus.CommandException;
  * Shows the satisfaction of a given animal.
  */
 class DoShowSatisfactionOfAnimal extends Command<Hotel> {
-
+  
   DoShowSatisfactionOfAnimal(Hotel receiver) {
     super(Label.SHOW_SATISFACTION_OF_ANIMAL, receiver);
     addStringField("idAni", Prompt.animalKey());

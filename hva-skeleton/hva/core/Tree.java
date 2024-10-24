@@ -26,6 +26,10 @@ public abstract class Tree extends Identifier {
         _birthSeason = season;
     }
 
+    protected double cleaningEffort() {
+        return _diff * _state.seasonalEffort() * Math.log(_age + 1);
+    }
+
     protected void updateTreeAge() {
         if(_birthSeason.equals(_season)) {
             _age++;

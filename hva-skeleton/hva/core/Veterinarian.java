@@ -36,7 +36,7 @@ public class Veterinarian extends Employee {
         return _satisfactionStrategy.calculateSatisfaction();
     }
 
-    Set<String> getSpeciesIds() {
+    protected Set<String> getSpeciesIds() {
         return Collections.unmodifiableSet(_species.keySet());
     }
 
@@ -44,12 +44,21 @@ public class Veterinarian extends Employee {
         return Collections.unmodifiableCollection(_species.values());
     }
 
-    String speciesIdsToString() {
+    protected String speciesIdsToString() {
         StringBuilder sb = new StringBuilder();
-        for (String idSpc : _species.keySet()) {
+        
+        Set<String> sortedKeys = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+        sortedKeys.addAll(_species.keySet());
+        
+        for (String idSpc : sortedKeys) {
             sb.append(idSpc).append(",");
         }
-        return sb.substring(0, sb.length() - 1);
+        
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
+        
+        return sb.toString();
     }
 
     @Override

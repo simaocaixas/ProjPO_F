@@ -1,10 +1,13 @@
 package hva.core;
 import java.util.*;
+
 import hva.core.exception.*;
 
 public class ZooKeeper extends Employee {
 
+    
     private HashMap<String,Habitat> _habitats = new HashMap<String,Habitat>();
+    private SatisfactionStrategy _satisfactionStrategy = new ZooKeeperSatisfactionStrategy(this);
 
 
     public ZooKeeper(String idEmp, String nameEmp, Hotel hotel) {
@@ -12,7 +15,7 @@ public class ZooKeeper extends Employee {
     }
 
     public double calculateSatisfaction() {
-        return 0.0;
+        return _satisfactionStrategy.calculateSatisfaction();
     }
 
     public void addResponsibility(String idHabi) throws ResponsabilityNotThereException {
@@ -20,6 +23,7 @@ public class ZooKeeper extends Employee {
             Hotel hotel = hotel();
             Habitat habitat = hotel.getHabitatById(idHabi);
             _habitats.put(idHabi, habitat);
+            habitat.addZooKeeper(this);
         } catch (HabitatNotKnownException e) {
             throw new ResponsabilityNotThereException(idHabi);
         }
@@ -39,6 +43,10 @@ public class ZooKeeper extends Employee {
             sb.append(idHabi).append(",");
         }
         return sb.substring(0, sb.length() - 1);
+    }
+
+    public Collection<Habitat> getHabitats() {
+        return Collections.unmodifiableCollection(_habitats.values());
     }
 
     @Override

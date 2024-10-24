@@ -1,6 +1,8 @@
 package hva.app.employee;
 
 import hva.core.Hotel;
+import hva.core.exception.EmployeeNotKnownException;
+import hva.core.exception.ResponsabilityNotThereException;
 import hva.app.exception.NoResponsibilityException;
 import hva.app.exception.UnknownEmployeeKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -14,11 +16,19 @@ class DoRemoveResponsibility extends Command<Hotel> {
 
   DoRemoveResponsibility(Hotel receiver) {
     super(Label.REMOVE_RESPONSABILITY, receiver);
-    //FIXME add command fields
+    addStringField("idEmp", Prompt.employeeKey());
+    addStringField("idRes", Prompt.responsibilityKey());
   }
+
   
   @Override
   protected void execute() throws CommandException {
-    //FIXME implement command
+    try {
+      _receiver.removeResponsability(stringField("idEmp"), stringField("idRes"));
+    } catch (EmployeeNotKnownException ece) {
+      throw new UnknownEmployeeKeyException(stringField("idEmp"));
+    } catch (ResponsabilityNotThereException ece) {
+      throw new NoResponsibilityException(stringField("idEmp"),stringField("idRes"));
+    } 
   }
 }

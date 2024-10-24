@@ -212,6 +212,17 @@ public class Hotel implements Serializable {
     this.setState(true);
   }
 
+  public void removeResponsability(String idEmp, String idResponsability) throws EmployeeNotKnownException, ResponsabilityNotThereException {
+    
+    if (!containsKeyIgnoreCase(_employees,idEmp)) {
+      throw new EmployeeNotKnownException(idEmp);
+    } 
+
+    Employee employee = getEmployeeById(idEmp);
+    employee.removeResponsibility(idResponsability); 
+
+    this.setState(true);
+  }
   /**
    * Registers a new habitat in the hotel's habitat hashtable.
    * 
@@ -257,10 +268,12 @@ public class Hotel implements Serializable {
   }
 
   public void transferAnimal(String idAni, String idHabi) throws AnimalNotKnownException, HabitatNotKnownException{
-    /*
-    Habitat habitat = getHabitatById(idHabi);
-    Animal animal = 
-    */
+      
+      Animal animal = getAnimalById(idAni);
+      Habitat habitat = getHabitatById(idHabi);
+  
+      animal.transfer(habitat);
+      this.setState(true);
   }
 
   public void nextSeason() {
@@ -285,8 +298,6 @@ public class Hotel implements Serializable {
     habitat.changeHabitat(habitat, area);
     this.setState(true);
   }
-
-
 
   public Animal getAnimalById(String idAni) throws AnimalNotKnownException {
     return getById(_animals, idAni, new AnimalNotKnownException(idAni));

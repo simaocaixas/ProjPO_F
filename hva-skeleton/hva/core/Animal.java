@@ -18,6 +18,12 @@ public class Animal extends Identifier{
         _habitat.addAnimal(this);
     }
 
+    public void transfer(Habitat habitat) {
+        _habitat.removeAnimal(this);
+        _habitat = habitat;
+        _habitat.addAnimal(this);
+    }
+
     public double calculateSatisfaction() {
         return _satisfactionStrategy.calculateSatisfaction(); // Usa a estratégia para calcular a satisfação
     }
