@@ -1,6 +1,12 @@
 package hva.core;
+
 import java.io.Serializable;
 
+/**
+ * Represents a general identifier object for entities such as animals, trees, employees, etc. 
+ * An Identifier has a unique ID, name, and may be associated with a specific hotel.
+ * This class implements Serializable, allowing its instances to be serialized and deserialized.
+ */
 public class Identifier implements Serializable {
 
     private String _id;
@@ -9,30 +15,64 @@ public class Identifier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    public Identifier(String id, String name, Hotel hotel) {
+    /**
+     * Constructs an Identifier with the specified ID, name, and associated hotel.
+     * 
+     * @param id    the unique identifier of the entity
+     * @param name  the name of the entity
+     * @param hotel the hotel associated with the entity
+     */
+    Identifier(String id, String name, Hotel hotel) {
         _id = id;
         _name = name;
         _hotel = hotel;
     }
 
-    public Identifier(String id, String name) {
+    /**
+     * Constructs an Identifier with the specified ID and name.
+     * This constructor is used when there is no associated hotel.
+     * 
+     * @param id   the unique identifier of the entity
+     * @param name the name of the entity
+     */
+    Identifier(String id, String name) {
         _id = id;
         _name = name;
     }
 
-
-    public String id() {
+    /**
+     * Returns the ID of the entity.
+     * 
+     * @return the entity's ID
+     */
+    String id() {
         return _id;
     }
 
-    public String name() {
+    /**
+     * Returns the name of the entity.
+     * 
+     * @return the entity's name
+     */
+    String name() {
         return _name;
     }
 
-    public Hotel hotel() {
+    /**
+     * Returns the hotel associated with the entity, if any.
+     * 
+     * @return the associated hotel, or null if not available
+     */
+    Hotel hotel() {
         return _hotel;
     }
 
+    /**
+     * Returns a string representation of the Identifier object.
+     * The format is: ID|Name.
+     * 
+     * @return a string representing the identifier
+     */
     public String toString() {
         return _id + "|" + _name;
     }

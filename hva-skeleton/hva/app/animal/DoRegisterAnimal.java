@@ -1,5 +1,6 @@
 package hva.app.animal;
 
+import java.util.List;
 import hva.core.Habitat;
 import hva.core.Hotel;
 import hva.core.Specie;
@@ -13,40 +14,46 @@ import hva.app.exception.UnknownSpeciesKeyException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
-/**
+
+  /**
  * Register a new animal in this zoo hotel.
  */
 class DoRegisterAnimal extends Command<Hotel> {
 
   DoRegisterAnimal(Hotel receiver) {
     super(Label.REGISTER_ANIMAL, receiver);
-    //FIXME add command fields
     addStringField("idAni",Prompt.animalKey());
     addStringField("nomeAni",Prompt.animalName());
     addStringField("idSpc",Prompt.speciesKey());
     addStringField("idHabi",hva.app.habitat.Prompt.habitatKey()); 
- 
   }
 
   @Override
-  protected final void execute() throws CommandException { 
-    try {
-        Specie specie = _receiver.getSpecieById(stringField("idSpc"));
-        _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
-      } catch (SpeciesNotKnownException ece) {
-        String nomeSpc = Form.requestString(Prompt.speciesName()); 
-        try { 
+  protected final void execute() throws CommandException {
+
+    List<Specie> species = _receiver.getAllSpecies();
+
+    if(!_receiver.containsKeyIgnoreCase(species,stringField("idSpc"))) {
+
+      try {
+          String nomeSpc = Form.requestString(Prompt.speciesName()); 
           _receiver.registerSpecie(stringField("idSpc"), nomeSpc);
-          execute();
         } catch (SpeciesAlreadyThereException e) {
-          throw new UnknownSpeciesKeyException(e.idSpc());
-        }  
+          throw new DuplicateAnimalKeyException(stringField("idSpc"));
+        }
+    } 
+
+    try {
+      Specie specie = _receiver.getSpecieById(stringField("idSpc"));
+      _receiver.registerAnimal(stringField("idAni"), stringField("nomeAni"), stringField("idSpc"), stringField("idHabi")); 
+
+      } catch (SpeciesNotKnownException e) {
+        throw new UnknownSpeciesKeyException(stringField("idSpc"));
+      } catch (HabitatNotKnownException e) {
+        throw new UnknownHabitatKeyException(stringField("idHabi"));
       } catch (AnimalAlreadyThereException e) {
-          throw new DuplicateAnimalKeyException(stringField("idAni")); 
-      } catch (HabitatNotKnownException ece) {
-      throw new UnknownHabitatKeyException(stringField("idHabi"));
-    }
+        throw new DuplicateAnimalKeyException(stringField("idAni"));
+      }
   }
 }
 

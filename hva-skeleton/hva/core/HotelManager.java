@@ -1,7 +1,8 @@
 package hva.core;
 
-import hva.core.exception.*;
 import java.io.*;
+import hva.core.exception.*;
+
 
 /**
  * Class representing the manager of this application. It manages the current

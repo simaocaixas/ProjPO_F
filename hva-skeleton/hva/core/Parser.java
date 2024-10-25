@@ -1,9 +1,7 @@
 package hva.core;
 
+import java.io.*;
 import hva.core.exception.*;
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.BufferedReader;
 
 /**
  * Esta solução assume que a classe Hotel já tem a seguinte funcionalidade
@@ -31,6 +29,15 @@ public class Parser {
         _hotel = h;
     }
 
+    /**
+     * Parses a file containing data entries for species, animals, habitats, employees, vaccines, and trees.
+     * Each line in the file should represent a specific entity and is parsed based on the type of entry.
+     * Supported entries include species, animals, habitats, veterinarians, zookeepers, vaccines, and trees.
+     * 
+     * @param filename the name of the file to parse
+     * @throws IOException if an I/O error occurs when reading the file
+     * @throws UnrecognizedEntryException if the file contains an unrecognized or malformed entry
+     */
     public void parseFile(String filename) throws IOException, UnrecognizedEntryException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -42,6 +49,13 @@ public class Parser {
         _hotel.setState(true);
     }
 
+    /**
+     * Parses a single line from the file and delegates the parsing to the appropriate handler
+     * based on the type of entry (e.g., species, animal, habitat, etc.).
+     * 
+     * @param line the line to be parsed
+     * @throws UnrecognizedEntryException if the entry type is not recognized
+     */
     private void parseLine(String line) throws UnrecognizedEntryException {
         String[] components = line.split("\\|");
         switch (components[0]) {
@@ -56,7 +70,12 @@ public class Parser {
         }
     }
 
-    // Parse a line with format ANIMAL|id|nome|idEspécie|idHabitat
+    /**
+     * Parses an animal entry from the components array. The format is: ANIMAL|id|name|speciesId|habitatId.
+     * 
+     * @param components the components of the entry to parse
+     * @throws UnrecognizedEntryException if there is an issue with the entry format or data
+     */
     private void parseAnimal(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -70,6 +89,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a species entry from the components array. The format is: ESPÉCIE|id|name.
+     * 
+     * @param components the components of the entry to parse
+     * @throws UnrecognizedEntryException if the species already exists or if the entry is malformed
+     */
     private void parseSpecies(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -80,6 +105,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an employee entry from the components array. The format is: 
+     * EMPLOYEE_TYPE|id|name|responsibility1,responsibility2,... (optional).
+     * 
+     * @param components the components of the entry to parse
+     * @param empType the type of employee (e.g., "VET" for veterinarian, "TRT" for caretaker)
+     * @throws UnrecognizedEntryException if there is an issue with the entry format or data
+     */
     private void parseEmployee(String[] components, String empType) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -96,7 +129,13 @@ public class Parser {
         }
     }
 
-    // Parse a line with format VACINA|id|nome|idEspécie1,...,idEspécieN
+    /**
+     * Parses a vaccine entry from the components array. The format is: 
+     * VACINA|id|name|idSpecies1,...,idSpeciesN.
+     * 
+     * @param components the components of the entry to parse
+     * @throws UnrecognizedEntryException if there is an issue with the entry format or if any species ID is not known
+     */
     private void parseVaccine(String[] components) throws UnrecognizedEntryException{
         
         try {
@@ -110,6 +149,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a habitat entry from the components array. The format is: 
+     * HABITAT|id|name|area|treeId1,treeId2,... (optional).
+     * 
+     * @param components the components of the entry to parse
+     * @throws UnrecognizedEntryException if there is an issue with the entry format, or if the habitat already exists
+     */
     private void parseHabitat(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -136,6 +182,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a tree entry from the components array. The format is:
+     * ÁRVORE|id|name|age|difficulty|type.
+     * 
+     * @param components the components of the entry to parse
+     * @throws UnrecognizedEntryException if there is an issue with the entry format or if the tree already exists
+     */
     private void parseTree(String[] components) throws UnrecognizedEntryException {
         try {
             String id = components[1];
@@ -152,9 +205,3 @@ public class Parser {
 
 }
 
-/**
- * Nota: O bloco catch presente nos vários métodos parse desta classe deverá ter em conta
- * as várias excepções que podem acontecer no contexto do bloco try em questão.
- * Estas excepções do domínio têm que ser definidas por cada grupo e devem representar situações
- * de erro específicas do domínio.
- **/
