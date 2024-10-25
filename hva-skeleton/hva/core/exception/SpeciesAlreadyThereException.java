@@ -12,9 +12,5 @@ public class SpeciesAlreadyThereException extends Exception {
   public String idSpc() {
     return _idSpc;
   }
-
-  public SpeciesAlreadyThereException(Throwable cause) {
-    super(cause);
-  }
     
 }

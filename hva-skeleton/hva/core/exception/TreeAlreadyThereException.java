@@ -13,8 +13,5 @@ public class TreeAlreadyThereException extends Exception {
     return _idTree;
   }
 
-  public TreeAlreadyThereException(Throwable cause) {
-    super(cause);
-  }
     
 }

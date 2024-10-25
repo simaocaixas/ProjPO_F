@@ -6,7 +6,6 @@ import hva.core.exception.AnimalNotKnownException;
 import hva.app.exception.UnknownAnimalKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Shows the satisfaction of a given animal.

@@ -13,8 +13,5 @@ public class TreeNotKnownException extends Exception {
     return _idTree;
   }
 
-  public TreeNotKnownException(Throwable cause) {
-    super(cause);
-  }
-    
+
 }

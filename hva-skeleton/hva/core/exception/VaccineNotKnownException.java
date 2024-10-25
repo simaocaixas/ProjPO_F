@@ -13,9 +13,6 @@ public class VaccineNotKnownException extends Exception {
       return _idVaccine;
     }
   
-    public VaccineNotKnownException(Throwable cause) {
-      super(cause);
-    }
-      
+
   }
   

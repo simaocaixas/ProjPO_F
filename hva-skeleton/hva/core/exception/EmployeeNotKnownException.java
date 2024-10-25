@@ -6,9 +6,6 @@ public class EmployeeNotKnownException extends Exception {
         super("Funcionário não registado" + idEmp);
     }
     
-    public EmployeeNotKnownException(Throwable cause) {
-        super(cause);
-    }
 }
 
 

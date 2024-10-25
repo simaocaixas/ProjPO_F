@@ -13,8 +13,4 @@ public class VaccineAlreadyThereException extends Exception {
       return _idVaccine;
     }
   
-    public VaccineAlreadyThereException(Throwable cause) {
-      super(cause);
-    }
-      
   }

@@ -6,8 +6,6 @@ public class HabitatAlreadyThereException extends Exception {
     super("O habitat já está registado" + idHab);
   }
 
-  public HabitatAlreadyThereException(Throwable cause) {
-    super(cause);
-  }
+
     
 }

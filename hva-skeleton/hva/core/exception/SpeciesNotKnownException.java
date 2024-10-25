@@ -13,8 +13,5 @@ public class SpeciesNotKnownException extends Exception {
     return _idSpc;
   }
 
-  public SpeciesNotKnownException(Throwable cause) {
-    super(cause);
-  }
 
 }

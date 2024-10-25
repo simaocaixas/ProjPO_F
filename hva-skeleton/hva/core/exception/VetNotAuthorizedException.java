@@ -18,9 +18,5 @@ public class VetNotAuthorizedException extends Exception {
       return _idSpc;
     }
   
-    public VetNotAuthorizedException(Throwable cause) {
-      super(cause);
-    }
-   
   }
   
